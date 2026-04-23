@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BITE 23 | Search</title>
+
+  <link rel="stylesheet" href="bit23.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&dis">
+</head>
+
+<body class="background">
+  <div class="header">
+    <div class="container">
+      <h1 class="titulo">BITE 23</h1>
+      <ul class="navbar">
+        <li>
+          <a href="index.html"><img src="home.png"></a>
+        </li>
+        <li class="agora">
+          <a href="#"><img src="search.png"></a>
+        </li>
+        <li>
+          <a href="dashboard.html"><img src="star.png"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="banner2">
+    <div class="container">
+      <div class="texto1">BUSCAR AVENTURAS</div>
+
+      <div class="search">
+
+        <div class="section_buscar">
+          <div class="item_buscar">
+            <label>vibe</label>
+            <div>
+              <select class="inp" id="sel_vibe">
+                <option disabled selected value="#"></option>
+                <option class="option" value="aconchegante">Aconchegante</option>
+                <option class="option" value="romantica">Romantica</option>
+                <option class="option" value="familiar">Familiar</option>
+                <option class="option" value="despojada">Despojada</option>
+                <option class="option" value="classica">Clássica</option>
+                <option class="option" value="divertida">Divertida</option>
+                <option class="option" value="tranquila">Tranquila</option>
+                <option class="option" value="chique">Chique</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="item_buscar">
+            <label>categoria</label>
+            <div>
+              <select class="inp" id="sel_categoria">
+                <option class="option" selected disabled value="#"></option>
+                <option class="option" value="hambuerguer">Hamburguer</option>
+                <option class="option" value="pizza">Pizza</option>
+                <option class="option" value="sushi">Sushi</option>
+                <option class="option" value="comida">Comida</option>
+                <option class="option" value="massa">Massa</option>
+                <option class="option" value="hotdog">Hotdog</option>
+                <option class="option" value="pastel">Pastel</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="section_buscar">
+          <div class="item_buscar">
+            <label>preferências</label>
+            <div>
+              <select class="inp" id="sel_preferencia">
+                <option class="option" selected disabled value="#"></option>
+                <option class="option" value="almoco">Almoço</option>
+                <option class="option" value="janta">Janta</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="item_buscar">
+            <div class="checkbox">
+              <input type="checkbox" id="inp_novidade" />
+              <label for="novidade">Novidade!</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+        <button onclick="buscar()" class="button1" href="login.html">BUSCAR!</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="sugestao">
+    <div class="container">
+      <div class="boxes">
+        <h1>SUGESTÕES:</h1>
+        <div id="div_rest" class="box"></div>
+        <a href="cadastro_restaurante.html" class="box_cadastro">+
+          <span>Adicionar novo restaurante</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>
+<script>
+  function buscar() {
+    let vibe = sel_vibe.value;
+    let categoria = sel_categoria.value;
+    let preferencia = sel_preferencia.value;
+    let novidade = inp_novidade.value;
+    let restaurante = `MAKI BURGUER<br>oioioioi`;
+
+
+      div_rest.innerHTML += `${restaurante}<br><br>
+      ${div_rest.innerHTML}`;
+
+
+  }
+</script>

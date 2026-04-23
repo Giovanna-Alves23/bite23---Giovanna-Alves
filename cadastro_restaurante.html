@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BITE 23 | Search</title>
+
+    <link rel="stylesheet" href="bit23.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&dis">
+</head>
+
+<body class="background">
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo">BITE 23</h1>
+            <ul class="navbar">
+                <li>
+                    <a href="index.html"><img src="home.png"></a>
+                </li>
+                <li class="agora">
+                    <a href="#"><img src="search.png"></a>
+                </li>
+                <li>
+                    <a href="dashboard.html"><img src="star.png"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="banner_cadastro_restaurante">
+        <div class="container">
+            <input class="texto1" placeholder="NOME">
+
+            <div class="search">
+
+                <div class="section_buscar">
+                    <div class="item_buscar">
+                        <label>Descrição:</label>
+                        <div>
+                            <input id="inp_descricao" type="text" placeholder="Insira uma descrição detalhada sobre o ambiente, música, cardápio, comida, valores e tudo que você gostaria de saber sobre um restaurante antes de visitá-lo!">
+                        </div>
+                    </div>
+
+                    <div class="item_buscar">
+                        <label>Horários</label>
+                        <div>
+                            <input id="inp_horarios" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selects">
+                    <div class="item_buscar">
+                        <label>Localização:</label>
+                        <div>
+                            <input class="localizacao" id="inp_localizacao" type="text">
+                        </div>
+                    </div>
+
+                    <div class="item_buscar">
+                        <label>Vibe:</label>
+                        <div class="select">
+                            <input type="checkbox">Aconchegante<br>
+                            <input type="checkbox">Romântica<br>
+                            <input type="checkbox">Familiar<br>
+                            <input type="checkbox">Despojada<br>
+                            <input type="checkbox">Clássica<br>
+                            <input type="checkbox">Divertida<br>
+                            <input type="checkbox">Tranquila<br>
+                            <input type="checkbox">Chique
+                        </div>
+                    </div>
+
+                    <div class="item_buscar">
+                        <label>Categoria:</label>
+                        <div class="select">
+                            <input type="checkbox">Hamburguer<br>
+                            <input type="checkbox">Pizza<br>
+                            <input type="checkbox">Sushi<br>
+                            <input type="checkbox">Comida<br>
+                            <input type="checkbox">Massa<br>
+                            <input type="checkbox">Hotdog<br>
+                            <input type="checkbox">Pastel
+                        </div>
+                    </div>
+
+                    <div class="item_buscar">
+                        <label>Preferência:</label>
+                        <div class="select">
+                            <input type="checkbox">Almoço<br>
+                            <input type="checkbox">Janta
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button onclick="cadastrar()" class="button1">CADASTRAR!</button>
+            </div>
+
+</body>
+
+</html>
+<script>
+    function cadastrar() {
+        let vibe = sel_vibe.value;
+        let categoria = sel_categoria.value;
+        let preferencia = sel_preferencia.value;
+        let novidade = inp_novidade.value;
+        let restaurante = `MAKI BURGUER<br>oioioioi`;
+
+
+        div_rest.innerHTML += `${restaurante}<br><br>
+      ${div_rest.innerHTML}`;
+
+
+    }
+</script>

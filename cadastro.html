@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,45 +9,147 @@
 
     <link rel="stylesheet" href="bit23.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&dis">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&dis">
 </head>
+
 <body class="background">
 
-  <div class="cadastro">
-  <a href="index.html" class="voltar"><img class="img1" src="setinha.png"></a>
-    <div class="container">
-      <div class="card">
-        <h2>CADASTRO</h2>
-        <div class="formulario">
-          <div class="campo">
-            <span>Código de ativação:</span>
-            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
-          </div>
-          <div class="campo">
-            <span>Nome:</span>
-            <input id="nome_input" type="text" placeholder="Seu nome" />
-          </div>
-          <div class="campo">
-            <span>E-mail:</span>
-            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
-          </div>
-          <div class="campo">
-            <span>Senha:</span>
-            <input id="senha_input" type="password" placeholder="******" />
-          </div>
-          <div class="campo">
-            <span>Confirmação da Senha:</span>
-            <input id="confirmacao_senha_input" type="password" placeholder="******" />
-          </div>
+    <div class="cadastro">
+        <a href="index.html" class="voltar"><img class="img1" src="setinha.png"></a>
+        <div class="container">
+            <div class="card">
+                <h2>CADASTRO</h2>
+                <div class="formulario">
+                    <div class="campo">
+                        <span>Nome:</span>
+                        <input id="inp_nome" type="text" placeholder="Seu nome" />
+                    </div>
+                    <div class="campo">
+                        <span>E-mail:</span>
+                        <input id="inp_email" type="text" placeholder="seu.email@gmail.com" />
+                    </div>
+                    <div oninput="validar()" class="campo1">
+                        <span>Senha:</span>
+                        <input id="inp_senha" type="password" placeholder="Insira sua senha" />
+                        <i class="olho" onclick="mostrar()"></i>
+                        <div id="validacao" class="validacao"></div>
+                    </div>
+
+                    <div oninput="senhasCoincidem()" class="campo1">
+                        <span>Confirmação da Senha:</span>
+                        <input id="inp_confirmacao" type="password" placeholder="Confirme sua senha" />
+                        <i class="olho" onclick="mostrar2()"></i>
+                        <div id="validacao2" class="validacao2"></div>
+                    </div>
+                </div>
+                <button onclick="registrar()" class="botao">Cadastrar</button>
+            </div>
         </div>
-        <a class="botao" href="login.html">Cadastrar</a>
-      </div>
+        <div class="img2">
+            <p class="texto">Bem vindo à sua nova aventura!</p>
+        </div>
+
     </div>
-    <div class="img2">
-      <p class="texto">Bem vindo à sua nova aventura!</p>
-    </div>
-    
-  </div>  
-    
+
 </body>
+
 </html>
+<script>
+    let validacaoFeita = false
+
+    function registrar() {
+        let nome = inp_nome.value
+        let email = inp_email.value
+        let senha = inp_senha.value
+        let senhaConfirmada = inp_confirmacao.value
+        let verificacaoEmailArroba = email.indexOf('@')
+        let verificacaoEmailPonto = email.indexOf('.')
+
+        if (nome == '' || email == '' || senha == '' || senhaConfirmada == '') {
+            alert('Todos os campos devem ser preenchidos para o cadastro!')
+        } else {
+            if (verificacaoEmailArroba == -1) {
+                alert('Insira um email válido')
+                validacaoFeita = false
+            } else if (verificacaoEmailPonto == -1) {
+                alert('Insira um email válido')
+                validacaoFeita = false
+            } else if (senha != senhaConfirmada) {
+                alert('As senhas não se coincidem')
+                validacaoFeita = false
+            } else {
+                validacaoFeita = true
+            }
+
+            if (validacaoFeita) {
+                alert('Cadastro realizado!')
+                inp_nome.value = ''
+                inp_email.value = ''
+                inp_senha.value = ''
+                inp_confirmacao.value = ''
+            }
+        }
+
+
+    }
+    function validar() {
+        let senha = inp_senha.value;
+        let senhaConfirmada = inp_confirmacao.value;
+        let tamanho = senha.length;
+        let senhaMaiuscula = senha.toUpperCase();
+        let senhaMinuscula = senha.toLowerCase();
+        let especial = ['!', '@', '#', '$', '%', '&', '*', '~', ';', '.', ',', '/', '+', '-', '=', '|'];
+        let temEspecial = false;
+
+
+        if (tamanho < 8) {
+            validacao.innerHTML = `A senha precisa ter no mínimo 8 caracteres`
+        } else if (senha == senhaMaiuscula) {
+            validacao.innerHTML = 'A senha precisa conter ao menos uma letra minúscula'
+        } else if (senha == senhaMinuscula) {
+            validacao.innerHTML = 'A senha precisa conter ao menos uma letra maiúscula'
+        } else {
+            for (let i = 0; i < tamanho; i++) {
+                if (especial.includes(senha[i])) {
+                    temEspecial = true;
+                    break;
+                }
+            }
+
+            if (!temEspecial) {
+                validacao.innerHTML = 'A senha precisa ter pelo menos um caractere especial'
+            } else {
+                validacao.innerHTML = ``
+                validacaoFeita = true
+            }
+        }
+    }
+
+    function senhasCoincidem() {
+        let senha = inp_senha.value
+        let senhaConfirmada = inp_confirmacao.value
+
+        if (senha != senhaConfirmada) {
+            validacao2.innerHTML = `As senhas não se coincidem`
+            validacaoFeita = false
+        } else {
+            validacao2.innerHTML = ''
+            validacaoFeita = true
+        }
+    }
+    function mostrar() {
+        if (inp_senha.type === "password") {
+            inp_senha.type = "text";
+        } else {
+            inp_senha.type = "password";
+        }
+    }
+    function mostrar2() {
+        if (inp_confirmacao.type === "password") {
+            inp_confirmacao.type = "text";
+        } else {
+            inp_confirmacao.type = "password";
+        }
+    }
+
+</script>
