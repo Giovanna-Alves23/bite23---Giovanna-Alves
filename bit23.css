@@ -1,0 +1,738 @@
+body {
+    margin: 0;
+
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&dis");
+
+.background {
+    background-color: #14151a;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.header {
+    display: flex;
+    background-color: #020008;
+    width: 100%;
+    border-bottom: 4px solid #ffc46c;
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        margin-right: 50px;
+    }
+}
+
+.titulo {
+    font-family: 'Bitcount Prop Single';
+    font-size: 37px;
+    color: #ffc46c;
+    font-weight: normal;
+    margin-left: 7%;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+
+    img {
+        width: 35px;
+        margin-inline: 45px;
+    }
+
+    .button {
+        padding: 10%;
+        margin-inline: 20%;
+        border-width: 0;
+        border-radius: 8px;
+        background-color: #EB7F48;
+        font-family: 'Bitcount Prop Single';
+        font-size: 20px;
+        color: #020008;
+        text-decoration: none;
+    }
+}
+
+.agora {
+    filter: invert(90%) sepia(85%) brightness(90%) saturate(220%);
+}
+
+.banner {
+    zoom: 80%;
+    display: flex;
+    background-image: url(noite1.jpg);
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 750px;
+    background-repeat: no-repeat;
+
+    .container {
+        align-items: center;
+        font-family: 'Bitcount Prop Single';
+        font-size: 400%;
+        font-weight: bold;
+        color: #ffc46c;
+        justify-content: center;
+        margin-inline: 25%;
+        width: 900px;
+        height: 470px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgb(45, 45, 48);
+        padding: 50px;
+        border-radius: 32px;
+        display: flex;
+        flex-direction: column;
+        background-color: #020008c4;
+
+        .texto {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: lighter;
+            font-size: 40%;
+            color: #ffc46c;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .button {
+            width: 40%;
+            height: 10%;
+            border-width: 0;
+            border-radius: 8px;
+            background-color: #24364E;
+            font-family: 'Bitcount Prop Single';
+            font-size: 35px;
+            color: #ffc46c;
+            margin-bottom: 40px;
+            padding-top: 15px;
+            font-weight: lighter;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .button2 {
+            width: 30%;
+            height: 7%;
+            border-width: 0;
+            border-radius: 8px;
+            background-color: #14151A;
+            font-family: 'Bitcount Prop Single';
+            font-size: 20px;
+            color: #ffc46c;
+            padding-top: 15px;
+            font-weight: lighter;
+            text-align: center;
+            text-decoration: none;
+        }
+    }
+}
+
+.social {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .container {
+        margin-right: 2%;
+    }
+
+    .boxes {
+        width: 80%;
+        padding-inline: 5%;
+        display: flex;
+        flex-wrap: wrap;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        flex-direction: column;
+        align-items: center;
+        font-size: x-large;
+        letter-spacing: 2px;
+
+        h4 {
+            width: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: bold;
+            font-size: 150%;
+            color: #ffc46c;
+            margin-inline: 10%;
+            margin-bottom: 40px;
+        }
+    }
+
+    img {
+        width: 50%;
+        height: 55%;
+        margin: 50px;
+        border-radius: 10px;
+    }
+
+    .box {
+
+        h4 {
+            width: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: normal;
+            font-size: 100%;
+            color: #ffc46c;
+            margin: 0;
+        }
+
+
+        font-family: 'Segoe UI',
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+        color: #828282;
+        margin-inline: 10%;
+
+
+    }
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5px;
+    width: 100%;
+    height: 30px;
+    background-color: #24364E;
+    font-size: medium;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    margin-top: 30px;
+
+    h4 {
+        display: flex;
+        align-self: center;
+        margin-bottom: 3px;
+        font-weight: lighter;
+    }
+}
+
+
+
+.login {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+
+    .voltar {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+
+        .img1 {
+            height: 45px;
+            width: 30px;
+        }
+    }
+
+    .img2 {
+        background-image: url(rua2.jpg);
+        height: 690px;
+        width: 550px;
+        border-radius: 32px;
+    }
+
+    .container {
+        margin-left: 16%;
+
+        .card {
+            display: flex;
+            background-color: #020008c4;
+            width: 400px;
+            height: 550px;
+            border-radius: 25px;
+            flex-direction: column;
+            align-items: center;
+            font-size: 30px;
+            font-family: 'Bitcount Prop Single';
+            color: #ffc46c;
+            justify-content: space-evenly;
+            padding-inline: 60px;
+
+            h2 {
+                margin: 0;
+                font-size: 60px;
+            }
+
+        }
+    }
+}
+
+.texto {
+    color: white;
+    font-size: 350%;
+    font-weight: 450;
+    text-align: center;
+    font-family: 'Bitcount Prop Single';
+}
+
+.cadastro {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+
+    .voltar {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+
+        .img1 {
+            height: 45px;
+            width: 30px;
+        }
+
+
+    }
+
+    .img2 {
+        background-image: url(nuvem.jpg);
+        background-size: 100%;
+        height: 690px;
+        width: 550px;
+        border-radius: 32px;
+    }
+
+    .container {
+        margin-left: 16%;
+
+        .card {
+            display: flex;
+            background-color: #020008c4;
+            width: 400px;
+            height: 650px;
+            border-radius: 25px;
+            flex-direction: column;
+            align-items: center;
+            font-size: 30px;
+            font-family: 'Bitcount Prop Single';
+            color: #ffc46c;
+            justify-content: space-evenly;
+            padding-inline: 60px;
+
+            h2 {
+                margin: 0;
+                font-size: 60px;
+            }
+
+        }
+    }
+}
+
+.formulario {
+    width: 100%;
+    display: flex;
+    font-size: medium;
+    flex-direction: column;
+
+    .campo {
+        display: flex;
+        flex-direction: column;
+        margin-block: 3%;
+
+        span {
+            font-weight: light;
+            font-size: large;
+            font-family: 'Bitcount Prop Single';
+            color: #ffff;
+        }
+
+        input {
+            width: 100%;
+            height: 40px;
+            align-self: center;
+            border-radius: 20px;
+            border-style: none;
+            background-color: #ffffffa8;
+            color: #24364E;
+        }
+    }
+
+    .campo1 {
+        position: relative;
+        margin-block: 3%;
+
+        span {
+            font-weight: light;
+            font-size: large;
+            font-family: 'Bitcount Prop Single';
+            color: #ffff;
+        }
+    }
+
+    .campo1 input {
+        width: 100%;
+        height: 40px;
+        align-self: center;
+        border-radius: 20px;
+        border-style: none;
+        background-color: #ffffffa8;
+        color: #24364E;
+
+    }
+
+    .validacao {
+        position: absolute;
+        color: #EB7F48;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 12px;
+        padding-top: 5px;
+    }
+
+    .validacao2 {
+        position: absolute;
+        color: #EB7F48;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 12px;
+        padding-top: 5px;
+    }
+
+}
+
+.botao {
+    padding-block: 2%;
+    padding-inline: 20%;
+    height: fit-content;
+    background-color: #24364E;
+    font-family: 'Bitcount Prop Single';
+    font-size: 100%;
+    color: #ffc46c;
+    border-style: none;
+    border-radius: 7px;
+    text-decoration: none;
+}
+
+.botao2 {
+    display: flex;
+    width: 45%;
+    height: 6%;
+    margin-top: -20px;
+    justify-content: center;
+    align-items: center;
+    background-color: #14151A;
+    font-family: 'Bitcount Prop Single';
+    font-size: 60%;
+    color: #FAAA9F;
+    border-style: none;
+    border-radius: 7px;
+    text-decoration: none;
+}
+
+.banner2 {
+    zoom: 80%;
+    display: flex;
+    background-image: url(restaurante.png);
+    background-size: 100%;
+    align-items: center;
+    width: 100%;
+    height: 750px;
+    background-repeat: no-repeat;
+    justify-content: center;
+
+    .button1 {
+        width: 40%;
+        height: 15%;
+        border-width: 0;
+        border-radius: 8px;
+        background-color: #24364E;
+        font-family: 'Bitcount Prop Single';
+        font-size: 35px;
+        color: #ffc46c;
+        font-weight: lighter;
+        text-align: center;
+    }
+
+    .inp {
+        width: 370px;
+        height: 60px;
+        border-radius: 30px;
+        border-style: none;
+        background-color: #ffffff50;
+        color: #ffffff;
+        font-size: larger;
+        font-family: 'Bitcount Prop Single';
+        margin-inline: 2%;
+        text-align: center;
+    }
+
+    .button1 {
+        width: 300px;
+        height: 90%;
+        border-width: 0;
+        border-radius: 8px;
+        background-color: #24364E;
+        font-family: 'Bitcount Prop Single';
+        font-size: 35px;
+        color: #ffc46c;
+        font-weight: lighter;
+        margin-top: 10%;
+    }
+
+    .texto1 {
+        font-size: 70px;
+        margin-bottom: 55px;
+    }
+
+    .search {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .option {
+        background-color: #24364E;
+        color: #ffc46c;
+        border-style: none;
+        font-size: 25px;
+        font-family: 'Bitcount Prop Single';
+    }
+
+    .container {
+        align-items: center;
+        font-family: 'Bitcount Prop Single';
+        font-weight: bold;
+        color: #ffc46c;
+        justify-content: center;
+        width: 900px;
+        height: 500px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgb(45, 45, 48);
+        padding: 50px;
+        border-radius: 32px;
+        display: flex;
+        flex-direction: column;
+        background-color: #020008c4;
+        font-size: 25px;
+        align-items: center;
+
+    }
+
+    .section_buscar {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 40px;
+    }
+
+    .item_buscar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 50px;
+    }
+
+}
+
+.checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    label {
+        margin-left: 15px;
+    }
+
+    input {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.sugestao {
+    display: flex;
+    justify-content: center;
+    font-family: 'Bitcount Prop Single';
+    color: #ffc46c;
+
+
+    h1 {
+        font-size: 70px;
+        text-align: center;
+    }
+
+    h4 {
+        text-align: center;
+        font-size: xx-large;
+    }
+
+    .box {
+        font-size: xx-large;
+        text-align: center;
+        background-color: #24364E;
+        width: 800px;
+        height: fit-content;
+        border-radius: 20px;
+    }
+
+    .box_cadastro {
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 80px;
+        text-align: center;
+        background-color: #24364E;
+        width: 800px;
+        height: 200px;
+        border-radius: 20px;
+        color: #ffc46c;
+        margin: 30px;
+
+        span {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            font-size: large;
+        }
+    }
+
+}
+
+.banner_cadastro_restaurante {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .button1 {
+        width: 40%;
+        height: 15%;
+        border-width: 0;
+        border-radius: 8px;
+        background-color: #24364E;
+        font-family: 'Bitcount Prop Single';
+        font-size: 35px;
+        color: #ffc46c;
+        font-weight: lighter;
+        text-align: center;
+    }
+
+    .inp {
+        width: 370px;
+        height: 60px;
+        border-radius: 30px;
+        border-style: none;
+        background-color: #ffffff50;
+        color: #ffffff;
+        font-size: larger;
+        font-family: 'Bitcount Prop Single';
+        margin-inline: 2%;
+        text-align: center;
+    }
+
+    .button1 {
+        width: 300px;
+        height: 90%;
+        border-width: 0;
+        border-radius: 8px;
+        background-color: #24364E;
+        font-family: 'Bitcount Prop Single';
+        font-size: 35px;
+        color: #ffc46c;
+        font-weight: lighter;
+        margin-top: 10%;
+    }
+
+    .texto1 {
+        background-color: transparent;
+        border-style: none;
+        color: #ffc46c;
+        font-family: 'Bitcount Prop Single';
+        font-size: 70px;
+        text-align: center;
+        width: 100%;
+        height: 10%;
+        margin-bottom: 30px;
+    }
+
+    .texto1::placeholder {
+        color: #ffc46c;
+    }
+
+    .search {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .option {
+        background-color: #24364E;
+        color: #ffc46c;
+        border-style: none;
+        font-size: 25px;
+        font-family: 'Bitcount Prop Single';
+    }
+
+    .container {
+        margin-top: 2%;
+        align-items: center;
+        font-family: 'Bitcount Prop Single';
+        font-weight: bold;
+        color: #ffc46c;
+        justify-content: center;
+        width: 1300px;
+        height: 750px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgb(45, 45, 48);
+        border-radius: 32px;
+        display: flex;
+        flex-direction: column;
+        background-color: #020008c4;
+        font-size: 25px;
+        align-items: center;
+
+        .section_buscar {
+            display: flex;
+
+            input {
+                width: 500px;
+                height: 200px;
+                background-color: transparent;
+                border-style: none;
+                color: #ffffff;
+            }
+        }
+
+        .item_buscar {
+            margin-inline: 20px;
+        }
+
+
+        label {
+            font-size: xx-large;
+            font-weight: lighter;
+        }
+
+        .selects {
+            display: flex;
+            flex-direction: row;
+
+            .localizacao {
+                width: 500px;
+                height: 200px;
+                background-color: transparent;
+                border-style: none;
+            }
+
+            .select {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-weight: lighter;
+                font-size: large;
+            }
+        }
+
+    }
+}
