@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>BITE 23 | Search</title>
+    <title>BITE 23 | Cadastro Restaurante</title>
 
     <link rel="stylesheet" href="bit23.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -19,21 +19,22 @@
             <h1 class="titulo">BITE 23</h1>
             <ul class="navbar">
                 <li>
-                    <a href="index.html"><img src="home.png"></a>
+                    <a href="index.html"><img src="icon/home.png"></a>
                 </li>
                 <li class="agora">
-                    <a href="#"><img src="search.png"></a>
+                    <a href="#"><img src="icon/search.png"></a>
                 </li>
                 <li>
-                    <a href="dashboard.html"><img src="star.png"></a>
+                    <a href="dashboard.html"><img src="icon/star.png"></a>
                 </li>
             </ul>
         </div>
     </div>
 
     <div class="banner_cadastro_restaurante">
+        <a href="sugestao.html" class="voltar"><img class="img1" src="icon/setinha.png"></a>
         <div class="container">
-            <input class="texto1" placeholder="NOME">
+            <input id="inp_nome" class="texto1" placeholder="INSIRA O NOME">
 
             <div class="search">
 
@@ -41,14 +42,16 @@
                     <div class="item_buscar">
                         <label>Descrição:</label>
                         <div>
-                            <input id="inp_descricao" type="text" placeholder="Insira uma descrição detalhada sobre o ambiente, música, cardápio, comida, valores e tudo que você gostaria de saber sobre um restaurante antes de visitá-lo!">
+                            <textarea class="inp" id="inp_descricao" type="text"
+                                placeholder="Insira uma descrição detalhada sobre o ambiente, música, cardápio, comida, valores e tudo que você gostaria de saber sobre um restaurante antes de visitá-lo!"></textarea>
                         </div>
                     </div>
 
                     <div class="item_buscar">
                         <label>Horários</label>
                         <div>
-                            <input id="inp_horarios" type="text">
+                            <textarea class="inp" id="inp_horarios" type="text"
+                                placeholder="Horários de funcionamento na semana. "></textarea>
                         </div>
                     </div>
                 </div>
@@ -57,21 +60,9 @@
                     <div class="item_buscar">
                         <label>Localização:</label>
                         <div>
-                            <input class="localizacao" id="inp_localizacao" type="text">
-                        </div>
-                    </div>
-
-                    <div class="item_buscar">
-                        <label>Vibe:</label>
-                        <div class="select">
-                            <input type="checkbox">Aconchegante<br>
-                            <input type="checkbox">Romântica<br>
-                            <input type="checkbox">Familiar<br>
-                            <input type="checkbox">Despojada<br>
-                            <input type="checkbox">Clássica<br>
-                            <input type="checkbox">Divertida<br>
-                            <input type="checkbox">Tranquila<br>
-                            <input type="checkbox">Chique
+                            <textarea class="inp" id="inp_localizacao" type="text" placeholder="Rua, número 
+Bairro - Cidade 
+Estado, CEP"></textarea>
                         </div>
                     </div>
 
@@ -85,6 +76,17 @@
                             <input type="checkbox">Massa<br>
                             <input type="checkbox">Hotdog<br>
                             <input type="checkbox">Pastel
+                        </div>
+                    </div>
+                    
+                    <div class="item_buscar">
+                        <label>Vibe:</label>
+                        <div class="select">
+                            <input type="checkbox">Aconchegante<br>
+                            <input type="checkbox">Romântica<br>
+                            <input type="checkbox">Despojada<br>
+                            <input type="checkbox">Clássica<br>
+                            <input type="checkbox">Chique
                         </div>
                     </div>
 
@@ -107,10 +109,11 @@
 </html>
 <script>
     function cadastrar() {
+        let nome = inp_nome.value.toUpperCase();
+        let novidade = inp_novidade.value;
         let vibe = sel_vibe.value;
         let categoria = sel_categoria.value;
         let preferencia = sel_preferencia.value;
-        let novidade = inp_novidade.value;
         let restaurante = `MAKI BURGUER<br>oioioioi`;
 
 
