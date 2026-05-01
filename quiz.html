@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BITE 23 | Quiz</title>
+
+    <link rel="stylesheet" href="bit23.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&dis">
+</head>
+
+<body onload="esconder()" class="background">
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo">BITE 23</h1>
+            <ul class="navbar">
+                <li>
+                    <a href="index.html"><img src="icon/home.png"></a>
+                </li>
+                <li>
+                    <a href="sugestao.html"><img src="icon/search.png"></a>
+                </li>
+                <li class="agora">
+                    <a href="#"><img src="icon/star.png"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="banner_quiz">
+        <a href="sugestao.html" class="voltar"><img class="img1" src="icon/setinha.png"></a>
+
+        <div id="inicar_jogo" class="container">
+            <label class="texto1">QUIZ BITE</label>
+            <div>
+                <button class="button1" onclick="iniciar()">INICIAR QUIZ</button>
+            </div>
+
+        </div>
+
+        <div id="jogo" class="container">
+            <div class="pergunta">
+                <span class="texto" id="pergunta">Pergunta</span>
+            </div>
+
+            <div>
+                <div id="opcoes" class="opcoes">
+                    <span class="botoes">
+                        <button onclick="escolherA()" id="primeiraOpcao" class="button" value="alternativaA"></button>
+                    </span>
+
+                    <span class="botoes">
+                        <button onclick="escolherB()" id="segundaOpcao" class="button" value="alternativaB"></button>
+                    </span>
+
+                    <span class="botoes">
+                        <button onclick="escolherC()" id="terceiraOpcao" class="button" value="alternativaC"></button>
+                    </span>
+
+                    <span class="botoes">
+                        <button onclick="escolherD()" id="quartaOpcao" class="button" value="alternativaD"></button>
+                    </span>
+
+                    <span class="botoes">
+                        <button onclick="escolherE()" id="quintaOpcao" class="button" value="alternativaE"></button>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="fim" class="resultado">
+            <div class="container">
+                <label class="texto1">FIM DO QUIZ!</label>
+                <div>
+                    <a href="#dash" class="resultado_button">VER RESULTADO</a>
+                </div>
+            </div>
+
+            <div id="dash" class="container">
+                <label class="texto1">RESULTADO!</label>
+
+                <div id="div">
+                    <canvas id="grafico"></canvas>
+                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+    let lista_pergunta = [
+
+        "O que um ambiente precisa ser para ser perfeito para você?",
+        "Qual tipo de decoração mais chama sua atenção?",
+        "Qual trilha sonora mais combina com você hoje?",
+        "Qual sensação você busca ao sair?",
+        "O que mais importa para você no momento?",
+        "Se você pudesse escolher agora, qual experiência te faria mais feliz?"
+
+    ];
+
+    let lista_A = [
+
+        "Acolhedor e relaxante",
+        "Plantas, móveis de madeira e luzes quentes",
+        "Bossa nova ou Lo-fi",
+        "Conforto e paz",
+        "Privacidade e conforto",
+        "Ficar em um lugar confortável e calmo"
+
+    ];
+
+    let lista_B = [
+
+        "Delicado e intimista",
+        "Flores, papel de parede delicado e meia luz",
+        "Romântica",
+        "Intimidade e conexão",
+        "Clima íntimo e especial",
+        "Um jantar romântico com meu amor"
+
+    ];
+
+    let lista_C = [
+
+        "Simples, descontraído",
+        "Cores vibrantes, parede de tijolinho e luzes quentes",
+        "Pop ou rap?",
+        "Liberdade e descontração",
+        "Espontaneidade e diversão",
+        "Algo divertido e sem planos com os amigos"
+
+    ];
+
+    let lista_D = [
+
+        "Nostálgico e atemporal",
+        "Objetos e jogos antigos, cartazes vintage e luzes amareladas",
+        "MPB antigo",
+        "Nostalgia",
+        "Relembrar bons momentos",
+        "Reviver algo especial do passado"
+
+    ];
+
+    let lista_E = [
+
+        "Sofisticado e minimalista",
+        "Cores sérias, janelas grandes e luzes quentes",
+        "Jazz",
+        "Exclusividade",
+        "Elegância e estilo",
+        "Ir a um lugar chique"
+
+    ];
+
+    let quantidadeDeQuestoes = lista_pergunta.length;
+    let aconchegante = 0;
+    let romantica = 0;
+    let despojada = 0;
+    let classica = 0;
+    let chique = 0;
+    let atual = 0;
+
+    function esconder() {
+        document.getElementById('jogo').style.display = "none";
+        document.getElementById('fim').style.display = "none";
+    }
+
+    function iniciar() {
+
+        document.getElementById('jogo').style.display = "flex";
+        document.getElementById('inicar_jogo').style.display = "none";
+
+        pergunta.innerHTML = lista_pergunta[atual];
+        primeiraOpcao.innerHTML = lista_A[atual];
+        segundaOpcao.innerHTML = lista_B[atual];
+        terceiraOpcao.innerHTML = lista_C[atual];
+        quartaOpcao.innerHTML = lista_D[atual];
+        quintaOpcao.innerHTML = lista_E[atual];
+
+        atual++;
+    }
+
+    for (atual = 0; atual < quantidadeDeQuestoes; atual++) {
+        if (atual == 0) {
+            aconchegante = 20;
+            romantica = 20;
+            despojada = 20;
+            classica = 20;
+            chique = 20;
+
+        } else if (atual == 1) {
+            aconchegante = 8;
+            romantica = 8;
+            despojada = 8;
+            classica = 8;
+            chique = 8;
+
+        } else if (atual == 2) {
+            aconchegante = 3;
+            romantica = 3;
+            despojada = 3;
+            classica = 3;
+            chique = 3;
+
+        } else if (atual == 3) {
+            aconchegante = 10;
+            romantica = 10;
+            despojada = 10;
+            classica = 10;
+            chique = 10;
+
+        } else if (atual == 4) {
+            aconchegante = 15;
+            romantica = 15;
+            despojada = 15;
+            classica = 15;
+            chique = 15;
+
+        } else {
+            aconchegante = 6;
+            romantica = 6;
+            despojada = 6;
+            classica = 6;
+            chique = 6;
+
+        }
+
+
+        function escolherA() {
+            aconchegante++;
+
+            pergunta.innerHTML = lista_pergunta[atual];
+            primeiraOpcao.innerHTML = lista_A[atual];
+            segundaOpcao.innerHTML = lista_B[atual];
+            terceiraOpcao.innerHTML = lista_C[atual];
+            quartaOpcao.innerHTML = lista_D[atual];
+            quintaOpcao.innerHTML = lista_E[atual];
+        }
+
+        function escolherB() {
+            romantica++;
+
+            pergunta.innerHTML = lista_pergunta[atual];
+            primeiraOpcao.innerHTML = lista_A[atual];
+            segundaOpcao.innerHTML = lista_B[atual];
+            terceiraOpcao.innerHTML = lista_C[atual];
+            quartaOpcao.innerHTML = lista_D[atual];
+            quintaOpcao.innerHTML = lista_E[atual];
+        }
+
+        function escolherC() {
+            despojada++;
+
+            pergunta.innerHTML = lista_pergunta[atual];
+            primeiraOpcao.innerHTML = lista_A[atual];
+            segundaOpcao.innerHTML = lista_B[atual];
+            terceiraOpcao.innerHTML = lista_C[atual];
+            quartaOpcao.innerHTML = lista_D[atual];
+            quintaOpcao.innerHTML = lista_E[atual];
+        }
+
+        function escolherD() {
+            classica++;
+
+            pergunta.innerHTML = lista_pergunta[atual];
+            primeiraOpcao.innerHTML = lista_A[atual];
+            segundaOpcao.innerHTML = lista_B[atual];
+            terceiraOpcao.innerHTML = lista_C[atual];
+            quartaOpcao.innerHTML = lista_D[atual];
+            quintaOpcao.innerHTML = lista_E[atual];
+        }
+
+        function escolherE() {
+            chique++;
+
+            pergunta.innerHTML = lista_pergunta[atual];
+            primeiraOpcao.innerHTML = lista_A[atual];
+            segundaOpcao.innerHTML = lista_B[atual];
+            terceiraOpcao.innerHTML = lista_C[atual];
+            quartaOpcao.innerHTML = lista_D[atual];
+            quintaOpcao.innerHTML = lista_E[atual];
+        }
+
+    }
+    document.getElementById('fim').style.display = "flex";
+    document.getElementById('jogo').style.display = "none";
+
+    div.innerHTML = `${aconchegante} ${romantica} ${despojada} ${classica} ${chique} `;
+
+    const ctx = document.getElementById('grafico');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Aconchegante', 'Romântica', 'Despojada', 'Clássica', 'Chique'],
+            datasets: [{
+                label: 'Pontuação',
+                data: [aconchegante, romantica, despojada, classica, chique],
+                borderColor: 'rgb(255, 196, 107)',
+                backgroundColor: 'rgb(255, 196, 107)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+</script>
