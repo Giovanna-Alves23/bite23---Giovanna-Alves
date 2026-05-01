@@ -68,7 +68,7 @@ body {
 .banner {
     zoom: 80%;
     display: flex;
-    background-image: url(noite1.jpg);
+    background-image: url(img/noite1.jpg);
     align-items: center;
     justify-content: flex-start;
     width: 100%;
@@ -239,7 +239,7 @@ body {
     }
 
     .img2 {
-        background-image: url(rua2.jpg);
+        background-image: url(img/rua2.jpg);
         height: 690px;
         width: 550px;
         border-radius: 32px;
@@ -300,7 +300,7 @@ body {
     }
 
     .img2 {
-        background-image: url(nuvem.jpg);
+        background-image: url(img/nuvem.jpg);
         background-size: 100%;
         height: 690px;
         width: 550px;
@@ -435,7 +435,7 @@ body {
 .banner2 {
     zoom: 80%;
     display: flex;
-    background-image: url(restaurante.png);
+    background-image: url(img/restaurante.png);
     background-size: 100%;
     align-items: center;
     width: 100%;
@@ -490,6 +490,7 @@ body {
     .search {
         display: flex;
         flex-direction: column;
+        font-weight: lighter;
     }
 
     .option {
@@ -607,9 +608,33 @@ body {
     align-items: center;
     justify-content: center;
 
+    .voltar {
+        position: absolute;
+        top: 30px;
+        left: 20px;
+
+        .img1 {
+            height: 35px;
+            width: 20px;
+        }
+    }
+
+    .inp {
+        width: 370px;
+        height: 60px;
+        border-radius: 30px;
+        border-style: none;
+        background-color: #ffffff50;
+        color: #ffffff;
+        font-size: larger;
+        font-family: 'Bitcount Prop Single';
+        margin-inline: 2%;
+        text-align: center;
+    }
+
     .button1 {
-        width: 40%;
-        height: 15%;
+        width: 300px;
+        height: 90%;
         border-width: 0;
         border-radius: 8px;
         background-color: #24364E;
@@ -617,7 +642,283 @@ body {
         font-size: 35px;
         color: #ffc46c;
         font-weight: lighter;
+        margin-top: 10%;
+    }
+
+    .texto1 {
+        background-color: transparent;
+        border-width: thin;
+        border-color: #ffc46c;
+        color: #ffc46c;
+        font-family: 'Bitcount Prop Single';
+        font-size: 270%;
+        font-weight: bold;
         text-align: center;
+        width: 80%;
+        height: 10%;
+        margin-top: 0;
+        margin-bottom: 30px;
+    }
+
+    .texto1::placeholder {
+        color: #ffc46c;
+    }
+
+    .search {
+        margin-top: 5%;
+        display: flex;
+        flex-direction: column;
+
+        .inp {
+            width: 500px;
+            height: 200px;
+            background-color: transparent;
+            border-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            border-radius: 5px;
+            font-size: 80%;
+            font-weight: lighter;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #cac9c9;
+        }
+    }
+
+    .option {
+        background-color: #24364E;
+        color: #ffc46c;
+        border-style: none;
+        font-size: 25px;
+        font-family: 'Bitcount Prop Single';
+    }
+
+    .container {
+        margin-top: 2%;
+        align-items: center;
+        font-family: 'Bitcount Prop Single';
+        font-weight: bold;
+        color: #ffc46c;
+        justify-content: center;
+        width: 1200px;
+        height: 850px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgb(45, 45, 48);
+        border-radius: 32px;
+        display: flex;
+        flex-direction: column;
+        background-color: #020008c4;
+        font-size: 25px;
+        align-items: center;
+
+        .section_buscar {
+            display: flex;
+
+            input {
+                width: 500px;
+                height: 200px;
+                background-color: transparent;
+                border-style: none;
+                color: #ffffff;
+            }
+        }
+
+        .item_buscar {
+            margin-inline: 20px;
+        }
+
+
+        label {
+            font-size: xx-large;
+            font-weight: lighter;
+        }
+
+        .selects {
+            display: flex;
+            flex-direction: row;
+
+            .inp {
+                width: 500px;
+                height: 200px;
+                background-color: transparent;
+                border-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .select {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-weight: lighter;
+                font-size: large;
+                color: #828282;
+            }
+        }
+
+    }
+}
+
+
+.visita {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #ffc46c;
+    height: 20%;
+
+    label {
+        margin-left: 15px;
+    }
+
+    input {
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        appearance: auto;
+        box-sizing: border-box;
+        padding: initial;
+        border: initial;
+        margin: 3px 3px 3px 4px;
+    }
+}
+
+.qnt_vezes {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+    align-items: center;
+
+    input {
+        width: 80%;
+        border-radius: 5px;
+        text-align: center;
+        font-size: large;
+        color: #cac9c9;
+        background-color: transparent;
+        border-style: groove;
+    }
+}
+
+.anotacao {
+    font-family: 'Bitcount Prop Single';
+    font-size: 190%;
+    color: #ffc46c;
+    margin-block: 5%;
+
+    label {
+        margin-left: 8%;
+    }
+}
+
+.adicionais {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+
+    .container1 {
+        width: 700px;
+        height: 300px;
+        background-color: #020008c4;
+        border-style: none;
+        border-radius: 30px;
+        font-family: 'Bitcount Prop Single';
+        font-weight: light;
+        color: #ffc46c;
+        display: flex;
+        font-size: 25px;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+
+        textarea {
+            width: 95%;
+            height: 90%;
+            background-color: transparent;
+            border: transparent;
+            border-style: none;
+            text-align: left;
+            color: #cac9c9;
+            font-size: 75%;
+            outline: none;
+        }
+    }
+
+}
+
+.classificacao {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Bitcount Prop Single';
+    font-weight: light;
+    color: #ffc46c;
+    font-size: 190%;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+
+    .estrela {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+    }
+
+    .estrela input[type="radio"] {
+        display: none;
+    }
+
+    .estrela label {
+        font-size: 50px;
+        color: #24364E;
+        cursor: pointer;
+    }
+
+    .estrela input[type="radio"]:checked~label,
+    .estrela label:hover,
+    .estrela label:hover~label {
+        color: #ffc46c;
+    }
+}
+
+.botao {
+    display: flex;
+    height: fit-content;
+    width: 1%;
+    justify-content: center;
+    margin-bottom: 1%;
+    margin-inline: 30%;
+
+
+    .button1 {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        border-width: 0;
+        border-radius: 8px;
+        background-color: #24364E;
+        font-family: 'Bitcount Prop Single';
+        font-size: 35px;
+        color: #ffc46c;
+        font-weight: 400;
+        cursor: pointer;
+    }
+}
+
+.banner_restaurante {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .voltar {
+        position: absolute;
+        top: 30px;
+        left: 20px;
+
+        .img1 {
+            height: 35px;
+            width: 20px;
+        }
     }
 
     .inp {
@@ -651,10 +952,12 @@ body {
         border-style: none;
         color: #ffc46c;
         font-family: 'Bitcount Prop Single';
-        font-size: 70px;
+        font-size: 270%;
+        font-weight: bold;
         text-align: center;
         width: 100%;
         height: 10%;
+        margin-top: 0;
         margin-bottom: 30px;
     }
 
@@ -663,8 +966,24 @@ body {
     }
 
     .search {
+        margin-top: 5%;
         display: flex;
         flex-direction: column;
+
+        .inp {
+            width: 500px;
+            height: 200px;
+            background-color: transparent;
+            border-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            border-radius: 5px;
+            font-size: 80%;
+            font-weight: lighter;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #cac9c9;
+        }
     }
 
     .option {
@@ -682,7 +1001,7 @@ body {
         font-weight: bold;
         color: #ffc46c;
         justify-content: center;
-        width: 1300px;
+        width: 1400px;
         height: 750px;
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
@@ -720,19 +1039,153 @@ body {
             display: flex;
             flex-direction: row;
 
-            .localizacao {
+            .inp {
                 width: 500px;
                 height: 200px;
                 background-color: transparent;
                 border-style: none;
+                padding: 0;
+                margin: 0;
             }
 
             .select {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 font-weight: lighter;
                 font-size: large;
+                color: #828282;
             }
         }
 
     }
+}
+
+.banner_quiz {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .voltar {
+        position: absolute;
+        top: 30px;
+        left: 20px;
+
+        .img1 {
+            height: 35px;
+            width: 20px;
+        }
+    }
+
+    .button1 {
+        width: 300px;
+        height: 90%;
+        border-width: 0;
+        border-radius: 8px;
+        background-color: #24364E;
+        font-family: 'Bitcount Prop Single';
+        font-size: 35px;
+        color: #ffc46c;
+        font-weight: lighter;
+        margin-top: 10%;
+        cursor: pointer;
+    }
+
+    .texto1 {
+        border-style: none;
+        color: #ffc46c;
+        font-family: 'Bitcount Prop Single';
+        font-size: 270%;
+        font-weight: lighter;
+        text-align: center;
+        width: 100%;
+        height: 10%;
+        margin-bottom: 20px;
+    }
+
+    .pergunta {
+        display: flex;
+        justify-content: center;
+
+        .texto {
+            border-style: none;
+            color: #ffc46c;
+            font-family: 'Bitcount Prop Single';
+            font-size: 140%;
+            font-weight: lighter;
+            text-align: center;
+            width: 80%;
+            height: 10%;
+            margin-block: 5px;
+        }
+    }
+
+    .container {
+        margin-block: 0.8%;
+        align-items: center;
+        font-family: 'Bitcount Prop Single';
+        font-weight: bold;
+        color: #ffc46b;
+        justify-content: center;
+        width: 1000px;
+        height: 570px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgb(45, 45, 48);
+        border-radius: 32px;
+        display: flex;
+        flex-direction: column;
+        background-color: #020008c4;
+        font-size: 25px;
+        align-items: center;
+
+        .opcoes {
+            width: fit-content;
+            display: flex;
+            margin-top: 10%;
+            margin-block: 5%;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .botoes{
+            display: flex;
+            justify-content: center;
+        }
+
+        .button {
+            width: 400px;
+            height: 65px;
+            border-width: 0;
+            border-radius: 8px;
+            background-color: #24364E;
+            font-family: 'Bitcount Prop Single';
+            font-size: 20px;
+            color: #ffc46c;
+            font-weight: lighter;
+            cursor: pointer;
+            margin-block: 5px;
+        }
+
+        .resultado_button {
+            display: flex;
+            width: 300px;
+            height: 75px;
+            font-size: larger;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background-color: #24364E;
+            color: #ffc46c;
+            font-weight: lighter;
+            cursor: pointer;
+            margin-block: 30px;
+            text-decoration: none;
+        }
+
+    }
+
+    .resultado{
+        display: flex;
+        flex-direction: column;
+    }
+
 }
