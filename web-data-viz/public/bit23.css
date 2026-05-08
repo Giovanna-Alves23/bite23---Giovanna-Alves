@@ -460,6 +460,7 @@ body {
         color: #ffc46c;
         font-weight: lighter;
         text-align: center;
+        cursor: pointer;
     }
 
     .inp {
@@ -565,14 +566,14 @@ body {
     font-family: 'Bitcount Prop Single';
     color: #ffc46c;
 
-    .boxes{
+    .boxes {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
 
-    .box_restaurante{
+    .box_restaurante {
         font-size: medium;
     }
 
@@ -611,9 +612,13 @@ body {
         margin: 30px;
 
         span {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
             font-size: large;
+        }
+
+        h2 {
+            font-size: 40px;
+            margin-block: 0;
         }
     }
 
