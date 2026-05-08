@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BITE 23 | Restaurante</title>
+
+    <link rel="stylesheet" href="bit23.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&dis">
+</head>
+
+<body class="background">
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo">BITE 23</h1>
+            <ul class="navbar">
+                <li>
+                    <a href="index.html"><img src="icon/home.png"></a>
+                </li>
+                <li class="agora">
+                    <a href="#"><img src="icon/search.png"></a>
+                </li>
+                <li>
+                    <a href="quiz.html"><img src="icon/star.png"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="banner_restaurante">
+        <a href="sugestao.html" class="voltar"><img class="img1" src="icon/setinha.png"></a>
+        <div class="container">
+            <div class="texto1" id="nome_restaurante" placeholder="nome">nome</div>
+
+            <div class="search">
+
+                <div class="section_buscar">
+                    <div class="item_buscar">
+                        <label>Descrição:</label>
+                        <div class="inp" id="div_descricao" type="text">
+                        </div>
+                    </div>
+
+                    <div class="item_buscar">
+                        <label>Horários</label>
+                        <div class="inp" id="div_horario" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selects">
+                    <div class="item_buscar">
+                        <label>Localização:</label>
+                        <div class="inp" id="div_localizacao">
+                        </div>
+                    </div>
+
+                    <div class="visita">
+                        <input class="check_visita" type="checkbox">
+                        <label for="visita">Já visitei!</label>
+                    </div>
+                    <div class="qnt_vezes">
+                        <label>Quantas vezes?</label>
+                        <input class="vezes" type="number">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="adicionais">
+
+        <div class="anotacao">
+            <label for="anotacao">ADICIONAR ANOTAÇÃO</label>
+            <div class="container1">
+                <textarea id="inp_anotacao" type="text"></textarea>
+            </div>
+        </div>
+
+        <div class="classificacao">
+            <label for="classificacao">ADICIONAR CLASSIFICAÇÃO</label>
+            <div class="estrela">
+                <input type="radio" id="estrela5" value="5" />
+                <label for="star5">★</label>
+                <input type="radio" id="estrela4" value="4" />
+                <label for="star4">★</label>
+                <input type="radio" id="estrela3" value="3" />
+                <label for="star3">★</label>
+                <input type="radio" id="estrela2" value="2" />
+                <label for="star2">★</label>
+                <input type="radio" id="estrela1" value="1" />
+                <label for="star1">★</label>
+            </div>
+        </div>
+
+    </div>
+    <div class="botao">
+        <div>
+            <button class="button1" onclick="anotar()">ANOTAR</button>
+        </div>
+    </div>
+    </div>
+
+
+</body>
+
+</html>
+<script>
+    div_descricao.innerHTML = `Excelente hamburgueria artesanal, 
+    eleita 3 vezes melhor hamburgueria da cidade! Ambiente agradável 
+    e bom para levar os amigos e família. Cardápio online, na cada mesa 
+    possui um tablet para fazer o pedido, música ambiente em volume agradável, 
+    comida ótima!`;
+    div_horario.innerHTML = `Seg - Qui  18:30 - 23:00
+    <br>Sex - Dom 12:00 - 23:00 `;
+    div_localizacao.innerHTML = `Rua Miguel Prisco, 627 
+    <br>Centro, Ribeirão Pires 
+    <br>SP - 09401-000`;
+
+    function anotar() {
+        let anotacao = inp_anotacao.value;
+        let star1 = estrela1.value;
+        let star2 = estrela2.value;
+        let star3 = estrela3.value;
+        let star4 = estrela4.value;
+        let star5 = estrela5.value;
+        let star = 0;
+
+        if(star1.checked && star2.checked && star3.checked && star4.checked && star5.checked){
+            star = 5
+        } else if (star1.checked && star2.checked && star3.checked && star4.checked && !star5.checked){
+            star = 4;
+        } else if (star1.checked && star2.checked && star3.checked && !star4.checked && !star5.checked){
+            star = 3;
+        } else if (star1.checked && star2.checked && !star3.checked && !star4.checked && !star5.checked){
+            star = 2;
+        } else if (star1.checked && !star2.checked && !star3.checked && !star4.checked && !star5.checked){
+            star = 1;
+        }
+
+        // Enviando o valor da nova input
+        fetch("http://localhost:3333/restaurantes/anotar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/restaurantes.js
+                anotacaoServer: anotacao,
+                starServer: star
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    setTimeout(() => {
+                        window.location = "sugestao.html";
+                    }, "2000");
+
+                } else {
+                    throw "Houve um erro ao tentar cadastrar anotação!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+</script>

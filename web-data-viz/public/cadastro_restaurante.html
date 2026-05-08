@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BITE 23 | Cadastro Restaurante</title>
+
+    <link rel="stylesheet" href="bit23.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&dis">
+</head>
+
+<body class="background">
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo">BITE 23</h1>
+            <ul class="navbar">
+                <li>
+                    <a href="index.html"><img src="icon/home.png"></a>
+                </li>
+                <li class="agora">
+                    <a href="#"><img src="icon/search.png"></a>
+                </li>
+                <li>
+                    <a href="quiz.html"><img src="icon/star.png"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="banner_cadastro_restaurante">
+        <a href="sugestao.html" class="voltar"><img class="img1" src="icon/setinha.png"></a>
+        <div class="container">
+            <input id="inp_nome" class="texto1" placeholder="INSIRA O NOME">
+
+            <div class="search">
+
+                <div class="section_buscar">
+                    <div class="item_buscar">
+                        <label>Descrição:</label>
+                        <div>
+                            <textarea class="inp" id="inp_descricao" type="text"
+                                placeholder="Insira uma descrição detalhada sobre o ambiente, música, cardápio, comida, valores e tudo que você gostaria de saber sobre um restaurante antes de visitá-lo!"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="item_buscar">
+                        <label>Horários</label>
+                        <div>
+                            <textarea class="inp" id="inp_horario" type="text"
+                                placeholder="Horários de funcionamento na semana. "></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selects">
+                    <div class="item_buscar">
+                        <label>Localização:</label>
+                        <div>
+                            <textarea class="inp" id="inp_localizacao" type="text" placeholder="Rua, número 
+Bairro - Cidade 
+Estado, CEP"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="item_buscar">
+                        <label>Categoria:</label>
+                        <div class="select">
+                            <input name="categoria" type="radio" value="Hamburguer">Hamburguer<br>
+                            <input name="categoria" type="radio" value="Pizza">Pizza<br>
+                            <input name="categoria" type="radio" value="Sushi">Sushi<br>
+                            <input name="categoria" type="radio" value="Comida">Comida<br>
+                            <input name="categoria" type="radio" value="Massa">Massa<br>
+                            <input name="categoria" type="radio" value="Hotdog">Hotdog<br>
+                            <input name="categoria" type="radio" value="Pastel">Pastel
+                        </div>
+                    </div>
+
+                    <div class="item_buscar">
+                        <label>Vibe:</label>
+                        <div class="select">
+                            <input name="vibe" type="radio" value="Aconchegante">Aconchegante<br>
+                            <input name="vibe" type="radio" value="Romântica">Romântica<br>
+                            <input name="vibe" type="radio" value="Despojada">Despojada<br>
+                            <input name="vibe" type="radio" value="Clássica">Clássica<br>
+                            <input name="vibe" type="radio" value="Chique">Chique
+                        </div>
+                    </div>
+
+                    <div class="item_buscar">
+                        <label>Preferência:</label>
+                        <div class="select">
+                            <input name="preferencia" type="radio" value="Almoço">Almoço<br>
+                            <input name="preferencia" type="radio" value="Janta">Janta
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button onclick="cadastrar()" class="button1">CADASTRAR!</button>
+            </div>
+
+</body>
+
+</html>
+<script>
+
+    function cadastrar() {
+        let nome = inp_nome.value.toUpperCase();
+        let descricao = inp_descricao.value;
+        let horario = inp_horario.value;
+        let localizacao = inp_localizacao.value;
+
+        let categoria = document.querySelector('input[name="categoria"]:checked')?.value;
+        let vibe = document.querySelector('input[name="vibe"]:checked')?.value;
+        let preferencia = document.querySelector('input[name="preferencia"]:checked')?.value;
+        console.log(categoria, vibe, preferencia)
+
+        if (nome == '' || descricao == '' || horario == '' ||
+            localizacao == '' || categoria == '' || vibe == '' || preferencia == '') {
+            alert('✨Preencha todos os campos✨')
+                return;
+        }
+
+        // Enviando o valor da nova input
+        fetch("http://localhost:3333/restaurantes/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/restaurantes.js
+                nomeServer: nome,
+                descricaoServer: descricao,
+                horarioServer: horario,
+                localizacaoServer: localizacao,
+                categoriaServer: categoria,
+                vibeServer: vibe,
+                preferenciaServer: preferencia
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    setTimeout(() => {
+                        window.location = "sugestao.html";
+                    }, "2000");
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+</script>

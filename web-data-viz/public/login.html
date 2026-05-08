@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bit 23 | Login</title>
+
+    <link rel="stylesheet" href="bit23.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&dis">
+
+</head>
+
+<body class="background">
+
+
+    <div class="login">
+        <a href="index.html" class="voltar"><img class="img1" src="icon/setinha.png"></a>
+
+        <div class="container">
+            <div class="card">
+                <h2>LOGIN</h2>
+                <div class="formulario">
+                    <div class="campo">
+                        <span>E-mail:</span>
+                        <input id="inp_email" type="text" placeholder="seu.email@gmail.com">
+                    </div>
+                    <div class="campo">
+                        <span>Senha:</span>
+                        <input type="password" id="inp_senha" placeholder="Insira a sua senha">
+                        <i class="fa-solid fa-eye olho" onclick="mostrar()"></i>
+                    </div>
+
+                </div>
+                <button type="button" onclick="entrar()" class="botao">Entrar</button>
+                <a class="botao2" href="cadastro.html">Novo por aqui?</a>
+            </div>
+        </div>
+        <div class="img2">
+            <p class="texto">Que bom te ter de volta!</p>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+<script>
+
+    function entrar() {
+        let email = inp_email.value;
+        let senha = inp_senha.value;
+
+        if (email == '' || senha == '') {
+            alert('✨Preencha todos os campos✨')
+        }
+        console.log("FORM LOGIN: ", email);
+        console.log("FORM SENHA: ", senha);
+
+        fetch("http://localhost:3333/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: email,
+                senhaServer: senha
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log('LOGIN OK');
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log('ENTROU NO JSON');
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.ID_USUARIO = json.id;
+                    window.location.href = "sugestao.html"
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log('ERRO NO FETCH');
+            console.log(erro);
+        })
+    }
+
+   /* function mostrar() {
+        if (inp_senha.type === "password") {
+            inp_senha.type = "text";
+        } else {
+            inp_senha.type = "password";
+        }
+    }*/
+</script>

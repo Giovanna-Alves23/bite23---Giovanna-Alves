@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bit 23 | Cadastro</title>
+
+    <link rel="stylesheet" href="bit23.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&dis">
+</head>
+
+<body class="background">
+
+    <div class="cadastro">
+        <a href="index.html" class="voltar"><img class="img1" src="icon/setinha.png"></a>
+        <div class="container">
+            <div class="card">
+                <h2>CADASTRO</h2>
+                <div class="formulario">
+                    <div class="campo">
+                        <span>Nome:</span>
+                        <input id="inp_nome" type="text" placeholder="Seu nome" />
+                    </div>
+                    <div class="campo">
+                        <span>E-mail:</span>
+                        <input id="inp_email" type="text" placeholder="seu.email@gmail.com" />
+                    </div>
+                    <div oninput="validar()" class="campo1">
+                        <span>Senha:</span>
+                        <input id="inp_senha" type="password" placeholder="Insira sua senha" />
+                        <i class="olho" onclick="mostrar()"></i>
+                        <div id="validacao" class="validacao"></div>
+                    </div>
+
+                    <div oninput="senhasCoincidem()" class="campo1">
+                        <span>Confirmação da Senha:</span>
+                        <input id="inp_confirmacao" type="password" placeholder="Confirme sua senha" />
+                        <i class="olho" onclick="mostrar2()"></i>
+                        <div id="validacao2" class="validacao2"></div>
+                    </div>
+                </div>
+                <button onclick="cadastrar()" class="botao">Cadastrar</button>
+            </div>
+        </div>
+        <div class="img2">
+            <p class="texto">Bem vindo à sua nova aventura!</p>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+<script>
+    let validacaoFeita = false
+
+    function cadastrar() {
+        let nome = inp_nome.value
+        let email = inp_email.value
+        let senha = inp_senha.value
+        let senhaConfirmada = inp_confirmacao.value
+        let verificacaoEmailArroba = email.indexOf('@')
+        let verificacaoEmailPonto = email.indexOf('.')
+
+        if (nome == '' || email == '' || senha == '' || senhaConfirmada == '') {
+            alert('✨Preencha todos os campos✨')
+        } else {
+            if (verificacaoEmailArroba == -1) {
+                alert('Insira um email válido')
+                validacaoFeita = false
+            } else if (verificacaoEmailPonto == -1) {
+                alert('Insira um email válido')
+                validacaoFeita = false
+            } else if (senha != senhaConfirmada) {
+                alert('As senhas não se coincidem')
+                validacaoFeita = false
+            } else {
+                validacaoFeita = true
+            }
+        }
+
+        // Enviando o valor da nova input
+        fetch("http://localhost:3333/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nome,
+                emailServer: email,
+                senhaServer: senha
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+        
+                    setTimeout(() => {
+                        window.location = "login.html";
+                    }, "2000");
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+        function validar() {
+        let senha = inp_senha.value;
+        let senhaConfirmada = inp_confirmacao.value;
+        let tamanho = senha.length;
+        let senhaMaiuscula = senha.toUpperCase();
+        let senhaMinuscula = senha.toLowerCase();
+        let especial = ['!', '@', '#', '$', '%', '&', '*', '~', ';', '.', ',', '/', '+', '-', '=', '|'];
+        let temEspecial = false;
+
+
+        if (tamanho < 8) {
+            validacao.innerHTML = `A senha precisa ter no mínimo 8 caracteres`
+        } else if (senha == senhaMaiuscula) {
+            validacao.innerHTML = 'A senha precisa conter ao menos uma letra minúscula'
+        } else if (senha == senhaMinuscula) {
+            validacao.innerHTML = 'A senha precisa conter ao menos uma letra maiúscula'
+        } else {
+            for (let i = 0; i < tamanho; i++) {
+                if (especial.includes(senha[i])) {
+                    temEspecial = true;
+                    break;
+                }
+            }
+
+            if (!temEspecial) {
+                validacao.innerHTML = 'A senha precisa ter pelo menos um caractere especial'
+            } else {
+                validacao.innerHTML = ``
+                validacaoFeita = true
+            }
+        }
+    }
+
+    function senhasCoincidem() {
+        let senha = inp_senha.value
+        let senhaConfirmada = inp_confirmacao.value
+
+        if (senha != senhaConfirmada) {
+            validacao2.innerHTML = `As senhas não se coincidem`
+            validacaoFeita = false
+        } else {
+            validacao2.innerHTML = ''
+            validacaoFeita = true
+        }
+    }
+
+        function validar() {
+        let senha = inp_senha.value;
+        let senhaConfirmada = inp_confirmacao.value;
+        let tamanho = senha.length;
+        let senhaMaiuscula = senha.toUpperCase();
+        let senhaMinuscula = senha.toLowerCase();
+        let especial = ['!', '@', '#', '$', '%', '&', '*', '~', ';', '.', ',', '/', '+', '-', '=', '|'];
+        let temEspecial = false;
+
+
+        if (tamanho < 8) {
+            validacao.innerHTML = `A senha precisa ter no mínimo 8 caracteres`
+        } else if (senha == senhaMaiuscula) {
+            validacao.innerHTML = 'A senha precisa conter ao menos uma letra minúscula'
+        } else if (senha == senhaMinuscula) {
+            validacao.innerHTML = 'A senha precisa conter ao menos uma letra maiúscula'
+        } else {
+            for (let i = 0; i < tamanho; i++) {
+                if (especial.includes(senha[i])) {
+                    temEspecial = true;
+                    break;
+                }
+            }
+
+            if (!temEspecial) {
+                validacao.innerHTML = 'A senha precisa ter pelo menos um caractere especial'
+            } else {
+                validacao.innerHTML = ``
+                validacaoFeita = true
+            }
+        }
+    }
+
+    function senhasCoincidem() {
+        let senha = inp_senha.value
+        let senhaConfirmada = inp_confirmacao.value
+
+        if (senha != senhaConfirmada) {
+            validacao2.innerHTML = `As senhas não se coincidem`
+            validacaoFeita = false
+        } else {
+            validacao2.innerHTML = ''
+            validacaoFeita = true
+        }
+    }
+
+</script>
