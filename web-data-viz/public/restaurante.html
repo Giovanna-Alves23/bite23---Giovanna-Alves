@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&dis">
 </head>
 
-<body class="background">
+<body onload="mostrarRestaurante()" class="background">
     <div class="header">
         <div class="container">
             <h1 class="titulo">BITE 23</h1>
@@ -60,13 +60,10 @@
                     </div>
 
                     <div class="visita">
-                        <input class="check_visita" type="checkbox">
+                        <input class="check_visita" type="checkbox" id="visitou">
                         <label for="visita">Já visitei!</label>
                     </div>
-                    <div class="qnt_vezes">
-                        <label>Quantas vezes?</label>
-                        <input class="vezes" type="number">
-                    </div>
+
 
                 </div>
 
@@ -87,16 +84,16 @@
         <div class="classificacao">
             <label for="classificacao">ADICIONAR CLASSIFICAÇÃO</label>
             <div class="estrela">
-                <input type="radio" id="estrela5" value="5" />
-                <label for="star5">★</label>
-                <input type="radio" id="estrela4" value="4" />
-                <label for="star4">★</label>
-                <input type="radio" id="estrela3" value="3" />
-                <label for="star3">★</label>
-                <input type="radio" id="estrela2" value="2" />
-                <label for="star2">★</label>
-                <input type="radio" id="estrela1" value="1" />
-                <label for="star1">★</label>
+                <input type="radio" id="estrela5" name="classificacao" value="5" />
+                <label for="estrela5">★</label>
+                <input type="radio" id="estrela4" name="classificacao" value="4" />
+                <label for="estrela4">★</label>
+                <input type="radio" id="estrela3" name="classificacao" value="3" />
+                <label for="estrela3">★</label>
+                <input type="radio" id="estrela2" name="classificacao" value="2" />
+                <label for="estrela2">★</label>
+                <input type="radio" id="estrela1" name="classificacao" value="1" />
+                <label for="estrela1">★</label>
             </div>
         </div>
 
@@ -113,40 +110,47 @@
 
 </html>
 <script>
-    div_descricao.innerHTML = `Excelente hamburgueria artesanal, 
-    eleita 3 vezes melhor hamburgueria da cidade! Ambiente agradável 
-    e bom para levar os amigos e família. Cardápio online, na cada mesa 
-    possui um tablet para fazer o pedido, música ambiente em volume agradável, 
-    comida ótima!`;
-    div_horario.innerHTML = `Seg - Qui  18:30 - 23:00
-    <br>Sex - Dom 12:00 - 23:00 `;
-    div_localizacao.innerHTML = `Rua Miguel Prisco, 627 
-    <br>Centro, Ribeirão Pires 
-    <br>SP - 09401-000`;
+
+    function mostrarRestaurante() {
+        const parametros = new URLSearchParams(window.location.search);
+        const id = parametros.get("id");
+
+        fetch(`http://localhost:3333/restaurantes/buscarPorId/${id}`,)
+            .then(resposta => resposta.json())
+            .then(dados => {
+                nome_restaurante.innerHTML = dados.nomeRestaurante;
+                div_descricao.innerHTML = dados.descricao;
+                div_horario.innerHTML = dados.horario;
+                div_localizacao.innerHTML = dados.localizacao;
+            })
+            .catch(erro => {
+                console.log(erro);
+            });
+    }
 
     function anotar() {
         let anotacao = inp_anotacao.value;
-        let star1 = estrela1.value;
-        let star2 = estrela2.value;
-        let star3 = estrela3.value;
-        let star4 = estrela4.value;
-        let star5 = estrela5.value;
         let star = 0;
+        let visita = 0;
 
-        if(star1.checked && star2.checked && star3.checked && star4.checked && star5.checked){
-            star = 5
-        } else if (star1.checked && star2.checked && star3.checked && star4.checked && !star5.checked){
-            star = 4;
-        } else if (star1.checked && star2.checked && star3.checked && !star4.checked && !star5.checked){
-            star = 3;
-        } else if (star1.checked && star2.checked && !star3.checked && !star4.checked && !star5.checked){
-            star = 2;
-        } else if (star1.checked && !star2.checked && !star3.checked && !star4.checked && !star5.checked){
-            star = 1;
+        if(visitou.checked){
+            visita = 1;
+        }
+
+        let fkUsuario = sessionStorage.ID_USUARIO;
+        const parametros = new URLSearchParams(window.location.search);
+        let fkRestaurante = parametros.get("id");
+
+        let estrelaSelecionada = document.querySelector(
+            'input[name="classificacao"]:checked'
+        );
+
+        if (estrelaSelecionada) {
+            star = Number(estrelaSelecionada.value);
         }
 
         // Enviando o valor da nova input
-        fetch("http://localhost:3333/restaurantes/anotar", {
+        fetch(`http://localhost:3333/restaurantes/anotar`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -154,8 +158,11 @@
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/restaurantes.js
+                fkUsuarioServer: fkUsuario,
+                fkRestauranteServer: fkRestaurante,
                 anotacaoServer: anotacao,
-                starServer: star
+                starServer: star,
+                visitaServer: visita
             }),
         })
             .then(function (resposta) {
@@ -164,11 +171,12 @@
                 if (resposta.ok) {
 
                     setTimeout(() => {
+                        alert('Sua anotação e classificação foram guardadas!');
                         window.location = "sugestao.html";
                     }, "2000");
 
                 } else {
-                    throw "Houve um erro ao tentar cadastrar anotação!";
+                    throw "Houve um erro ao tentar cadastrar anotação e classificação!";
                 }
             })
             .catch(function (resposta) {

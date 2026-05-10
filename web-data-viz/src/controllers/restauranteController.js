@@ -89,8 +89,11 @@
 
     function anotar(req, res) {
         // Crie uma variável que vá recuperar os valores do arquivo cadastro_restaurante.html
+        var fkUsuario = req.body.fkUsuarioServer;
+        var fkRestaurante = req.body.fkRestauranteServer;
         var anotacao = req.body.anotacaoServer;
         var star = req.body.starServer;
+        var visita = req.body.visitaServer;
 
         console.log(req.body);
 
@@ -102,7 +105,7 @@
         } else {
 
             // Passe os valores como parâmetro e vá para o arquivo restauranteModel.js
-            restauranteModel.anotar(anotacao, star)
+            restauranteModel.anotar(fkUsuario, fkRestaurante, anotacao, star, visita)
                 .then(
                     function (resultado) {
                         res.json(resultado);
@@ -124,11 +127,32 @@
         var categoria = req.body.categoriaServer;
         var vibe = req.body.vibeServer;
         var preferencia = req.body.preferenciaServer;
+        var fkUsuario = req.body.fkUsuarioServer;
 
-        restauranteModel.buscar(categoria, vibe, preferencia)
+        restauranteModel.buscar(categoria, vibe, preferencia,fkUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao buscar restaurante! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+
+    function buscarPorId(req, res) {
+        const id = req.params.id;
+
+        restauranteModel.buscarPorId(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado[0]);
                 }
             ).catch(
                 function (erro) {
@@ -146,5 +170,6 @@
         autenticar,
         cadastrar,
         anotar,
-        buscar
+        buscar,
+        buscarPorId
     }

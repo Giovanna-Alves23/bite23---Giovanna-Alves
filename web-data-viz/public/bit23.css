@@ -619,6 +619,16 @@ body {
         h2 {
             font-size: 40px;
             margin-block: 0;
+            color: #ffc46b;
+        }
+
+        p {
+            color: #ffc46b;
+        }
+
+        .star {
+            zoom: 200%;
+            margin-block: 0;
         }
     }
 
@@ -789,6 +799,7 @@ body {
     align-items: center;
     color: #ffc46c;
     height: 20%;
+    margin-left: 40px;
 
     label {
         margin-left: 15px;
@@ -803,23 +814,6 @@ body {
         padding: initial;
         border: initial;
         margin: 3px 3px 3px 4px;
-    }
-}
-
-.qnt_vezes {
-    display: flex;
-    flex-direction: column;
-    margin-left: 5%;
-    align-items: center;
-
-    input {
-        width: 80%;
-        border-radius: 5px;
-        text-align: center;
-        font-size: large;
-        color: #cac9c9;
-        background-color: transparent;
-        border-style: groove;
     }
 }
 
@@ -1025,8 +1019,8 @@ body {
         font-weight: bold;
         color: #ffc46c;
         justify-content: center;
-        width: 1400px;
-        height: 750px;
+        width: 1300px;
+        height: 650px;
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         border: 1px solid rgb(45, 45, 48);
@@ -1050,7 +1044,7 @@ body {
         }
 
         .item_buscar {
-            margin-inline: 20px;
+            margin-inline: 40px;
         }
 
 
@@ -1062,6 +1056,7 @@ body {
         .selects {
             display: flex;
             flex-direction: row;
+            height: 150px;
 
             .inp {
                 width: 500px;
@@ -1078,6 +1073,7 @@ body {
                 font-size: large;
                 color: #828282;
             }
+
         }
 
     }

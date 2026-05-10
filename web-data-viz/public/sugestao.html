@@ -107,7 +107,7 @@
         <h1 id="sugestao">SUGESTÕES:</h1>
 
         <div class="box_cadastro" id="aparecer">
-          <div id="restaurante">
+          <div class="restaurante" id="restaurante">
             <span id="nome_restaurante" class="box_restaurante"></span>
             <span id="categoria_vibe"></span>
           </div>
@@ -146,7 +146,8 @@
     let preferencia = sel_preferencia.value;
     let novidade = inp_novidade.checked;
 
-    console.log(preferencia);
+    let fkUsuario = sessionStorage.ID_USUARIO;
+
 
     fetch("http://localhost:3333/restaurantes/buscar", {
       method: "POST",
@@ -158,7 +159,8 @@
         // Agora vá para o arquivo routes/restaurantes.js
         categoriaServer: categoria,
         vibeServer: vibe,
-        preferenciaServer: preferencia
+        preferenciaServer: preferencia,
+        fkUsuarioServer: fkUsuario
       }),
     })
 
@@ -169,16 +171,26 @@
       .then(function (dados) {
         aparecer.style.display = "flex";
 
-        nome_restaurante.innerHTML = ``;
-        categoria_vibe.innerHTML = ``;
-
         for (let i = 0; i < dados.length; i++) {
-          restaurante.innerHTML += `<div class="box_restaurante">
+
+          let estrelas = "☆☆☆☆☆";
+
+          if (dados[i].classificacao) {
+            estrelas =
+              "★".repeat(dados[i].classificacao) +
+              "☆".repeat(5 - dados[i].classificacao);
+          }
+
+          console.log(dados[i].idRestaurante);
+          restaurante.innerHTML +=
+            `<a href="restaurante.html?id=${dados[i].idRestaurante}">
+          <div class="box_restaurante">
             <h2>${dados[i].nomeRestaurante}</h2>
             <p>Categoria: ${dados[i].categoria}</p>
             <p>Vibe: ${dados[i].vibe}</p>
-            <p>Preferência: ${dados[i].preferencia}</p>
-          </div>`;
+            <p class="star">${estrelas}</p>
+          </div>
+          </a>`;
 
         }
       })

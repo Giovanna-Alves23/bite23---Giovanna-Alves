@@ -80,8 +80,10 @@
                     console.log('ENTROU NO JSON');
                     console.log(json);
                     console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.ID_USUARIO = json[0].idUsuario;
+                    sessionStorage.EMAIL_USUARIO = json[0].email;
+
+                    
                     window.location.href = "sugestao.html"
                 });
 
