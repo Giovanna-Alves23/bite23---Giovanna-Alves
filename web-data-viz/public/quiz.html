@@ -87,6 +87,8 @@
             <div id="dash" class="container">
                 <label class="texto1">RESULTADO!</label>
 
+                <div id="kpi" class="kpi"></div>
+
                 <div class="graficos" id="div">
                     <canvas class="grafico" id="grafico1"></canvas>
                     <canvas class="grafico" id="grafico2"></canvas>
@@ -234,6 +236,7 @@
             document.getElementById('fim').style.display = "flex";
             document.getElementById('jogo').style.display = "none";
             mostrar_grafico();
+            salvar_resposta();
         }
 
         atual++;
@@ -270,6 +273,7 @@
             document.getElementById('fim').style.display = "flex";
             document.getElementById('jogo').style.display = "none";
             mostrar_grafico();
+            salvar_resposta();
         }
 
         atual++;
@@ -306,6 +310,7 @@
             document.getElementById('fim').style.display = "flex";
             document.getElementById('jogo').style.display = "none";
             mostrar_grafico();
+            salvar_resposta();
         }
 
         atual++;
@@ -342,6 +347,7 @@
             document.getElementById('fim').style.display = "flex";
             document.getElementById('jogo').style.display = "none";
             mostrar_grafico();
+            salvar_resposta();
         }
 
         atual++;
@@ -378,16 +384,11 @@
             document.getElementById('fim').style.display = "flex";
             document.getElementById('jogo').style.display = "none";
             mostrar_grafico();
+            salvar_resposta();
         }
 
         atual++;
     }
-
-    let lista_vibe = [aconchegante, romantica, despojada, classica, chique];
-    let maior_vibe = Math.max(...lista_vibe);
-    let index_maior = lista_vibe.indexOf(maior_vibe);
-    lista_vibe[index_maior] = 0
-    let segundo_maior = Math.max(...lista_vibe);
 
 
     function ver_resultado() {
@@ -398,70 +399,149 @@
         mostrar_grafico();
     }
 
+    function salvar_resposta() {
+        let fkUsuario = sessionStorage.ID_USUARIO;
+
+        // Enviando o valor da nova input
+        fetch("http://localhost:3333/restaurantes/salvarResposta", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                fkUsuarioServer: fkUsuario,
+                aconcheganteServer: aconchegante,
+                romanticaServer: romantica,
+                despojadaServer: despojada,
+                classicaServer: classica,
+                chiqueServer: chique
+
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    setTimeout(() => {
+
+                    }, "2000");
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
 
     function mostrar_grafico() {
+        let fkUsuario = sessionStorage.ID_USUARIO;
 
-        const ctx1 = document.getElementById('grafico1');
+        fetch(`http://localhost:3333/restaurantes/buscarResultado/${fkUsuario}`,)
+            .then(resposta => resposta.json())
+            .then(dados => {
+                let resultado = dados[0];
 
-        new Chart(ctx1, {
-            type: 'bar',
-            data: {
-                labels: ['Aconchegante', 'Romântica', 'Despojada', 'Clássica', 'Chique'],
-                datasets: [{
-                    label: 'Pontuação',
+                aconchegante = resultado.aconchegante;
+                romantica = resultado.romantica;
+                despojada = resultado.despojada;
+                classica = resultado.classica;
+                chique = resultado.chique;
 
-                    data: [
-                        aconchegante,
-                        romantica,
-                        despojada,
-                        classica,
-                        chique
-                    ],
-                    borderColor: 'rgb(255, 196, 107)',
-                    backgroundColor: 'rgba(255, 196, 108, 0.489)',
-                    borderWidth: 1,
-                    borderRadius: 10
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+                let listaVibe = [resultado.aconchegante, resultado.romantica, resultado.despojada, resultado.classica, resultado.chique];
+                let listaNomeVibe = ['ACONCHEGANTE', 'ROMÂNTICA', 'DESPOJADA', 'CLÁSSICA', 'CHIQUE'];
+                let maiorVibe = Math.max(...listaVibe);
+                let index = listaVibe.indexOf(maiorVibe);
+
+                kpi.innerHTML = `<p>VIBE DO MOMENTO:<br>${listaNomeVibe[index]}</p>`;
+
+                const ctx1 = document.getElementById('grafico1');
+
+                new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Aconchegante', 'Romântica', 'Despojada', 'Clássica', 'Chique'],
+                        datasets: [{
+                            label: 'Sua pontuação',
+
+                            data: [
+                                aconchegante,
+                                romantica,
+                                despojada,
+                                classica,
+                                chique
+                            ],
+                            borderColor: 'rgb(255, 196, 107)',
+                            backgroundColor: 'rgba(255, 196, 108, 0.489)',
+                            borderWidth: 1,
+                            borderRadius: 10
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
                     }
+                });
+
+            })
+            .catch(erro => {
+                console.log(erro);
+            });
+
+            fetch(`http://localhost:3333/restaurantes/favoritos`,)
+            .then(resposta => resposta.json())
+            .then(dados => {
+                console.log(dados);
+                let nomes = [];
+                let resultados = [];
+
+                for(let i = 0; i < dados.length; i ++){
+                    nomes.push(dados[i].nomeRestaurante);
+                    resultados.push(dados[i].media);                    
                 }
-            }
-        });
 
-        const ctx2 = document.getElementById('grafico2');
+                kpi.innerHTML += `<p>TOP 1 DOS USUÁRIOS:<br>${nomes[0]}</p>`;
 
-        new Chart(ctx2, {
-            type: 'line',
-            data2: {
-                labels: ['Aconchegante', 'Romântica', 'Despojada', 'Clássica', 'Chique'],
-                datasets: [{
-                    label: 'Favoritos',
+                const ctx1 = document.getElementById('grafico2');
 
-                    data2: [
-                        aconchegante,
-                        romantica,
-                        despojada,
-                        classica,
-                        chique
-                    ],
-                    borderColor: 'rgb(255, 196, 107)',
-                    backgroundColor: 'rgba(255, 196, 108, 0.489)',
-                    borderWidth: 1,
-                    borderRadius: 10
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+                new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: nomes,
+                        datasets: [{
+                            label: 'Favoritos dos usuários',
+
+                            data: resultados,
+
+                            borderColor: 'rgb(255, 196, 107)',
+                            backgroundColor: 'rgba(255, 196, 108, 0.489)',
+                            borderWidth: 1,
+                            borderRadius: 10
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
                     }
-                }
-            }
-        });
+                });
+
+            })
+            .catch(erro => {
+                console.log(erro);
+            });
+
     }
 
 </script>

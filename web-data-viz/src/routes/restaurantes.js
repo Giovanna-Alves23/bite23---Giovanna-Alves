@@ -20,8 +20,24 @@ router.post("/buscar", function (req, res) {
     restauranteController.buscar(req, res);
 });
 
-router.get("/buscarPorId/:id", function (req, res) {
+router.get("/buscarPorId/:id/:fkUsuario", function (req, res) {
     restauranteController.buscarPorId(req, res);
+});
+
+router.post("/salvarResposta", function (req, res) {
+    restauranteController.salvarResposta(req, res);
+});
+
+router.get("/buscarResultado/:fkUsuario", function (req, res) {
+    restauranteController.buscarResultado(req, res);
+});
+
+router.get("/favoritos", function (req, res) {
+    restauranteController.favoritos(req, res);
+});
+
+router.post("/naoVisitado", function (req, res) {
+    restauranteController.naoVisitado(req, res);
 });
 
 module.exports = router;

@@ -114,14 +114,21 @@
     function mostrarRestaurante() {
         const parametros = new URLSearchParams(window.location.search);
         const id = parametros.get("id");
+        let fkUsuario = sessionStorage.ID_USUARIO;
 
-        fetch(`http://localhost:3333/restaurantes/buscarPorId/${id}`,)
+        fetch(`http://localhost:3333/restaurantes/buscarPorId/${id}/${fkUsuario}`,)
             .then(resposta => resposta.json())
             .then(dados => {
                 nome_restaurante.innerHTML = dados.nomeRestaurante;
                 div_descricao.innerHTML = dados.descricao;
                 div_horario.innerHTML = dados.horario;
                 div_localizacao.innerHTML = dados.localizacao;
+                inp_anotacao.value = dados.anotacao;
+
+                if (dados.classificacao > 0) {
+                    document.getElementById(`estrela${dados.classificacao}`).checked = true;
+                }
+
             })
             .catch(erro => {
                 console.log(erro);
@@ -133,7 +140,7 @@
         let star = 0;
         let visita = 0;
 
-        if(visitou.checked){
+        if (visitou.checked) {
             visita = 1;
         }
 

@@ -439,7 +439,7 @@ body {
 }
 
 .banner2 {
-    zoom: 80%;
+    zoom: 85%;
     display: flex;
     background-image: url(img/restaurante.png);
     background-size: 100%;
@@ -1218,6 +1218,22 @@ body {
             margin-block: 30px;
         }
 
+        .kpi{
+            display: flex;
+            font-weight: lighter;
+            text-align: center;
+            margin-block: 50px;
+            width: 100%;
+            justify-content: center;
+
+            p{
+                margin-inline: 30px;
+                background-color: #ffc46c36;
+                border-radius: 15px;
+                padding: 10px;
+            }
+        }
+
     }
 
     .resultado {
@@ -1227,7 +1243,7 @@ body {
         .texto1 {
             display: flex;
             justify-content: center;
-            align-items: flex-end;
+            margin: 0;
         }
     }
 

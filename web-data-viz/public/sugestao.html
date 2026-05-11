@@ -138,18 +138,93 @@
   listaCategoria = ['Hamburguer', 'Pizza', 'Sushi', 'Comida', 'Massa', 'Hotdog', 'Pastel'];
 
   function buscar() {
-    document.getElementById('aparecer').style.display = 'flex';
-    window.location.href = "#sugestao";
+    let visita = inp_novidade.checked;
+    console.log(visita);
 
+    if (visita == true) {
+      console.log('entrei no if')
+      naoVisitado();
+    } else {
+
+      document.getElementById('aparecer').style.display = 'flex';
+      window.location.href = "#sugestao";
+
+      let fkUsuario = sessionStorage.ID_USUARIO;
+      let vibe = sel_vibe.value;
+      let categoria = sel_categoria.value;
+      let preferencia = sel_preferencia.value;
+
+
+      fetch("http://localhost:3333/restaurantes/buscar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/restaurantes.js
+          categoriaServer: categoria,
+          vibeServer: vibe,
+          preferenciaServer: preferencia,
+          fkUsuarioServer: fkUsuario
+        }),
+      })
+
+        .then(function (resposta) {
+          return resposta.json();
+        })
+
+        .then(function (dados) {
+          aparecer.style.display = "flex";
+          restaurante.innerHTML = ``;
+
+          if (dados.length == 0) {
+            restaurante.innerHTML = `Não achei :(`;
+            return;
+          }
+
+
+          for (let i = 0; i < dados.length; i++) {
+
+            let estrelas = "☆☆☆☆☆";
+
+            if (dados[i].classificacao) {
+              estrelas =
+                "★".repeat(dados[i].classificacao) +
+                "☆".repeat(5 - dados[i].classificacao);
+            }
+
+            console.log(dados[i].idRestaurante);
+            restaurante.innerHTML +=
+              `<a href="restaurante.html?id=${dados[i].idRestaurante}">
+          <div class="box_restaurante">
+            <h2>${dados[i].nomeRestaurante}</h2>
+            <p>Categoria: ${dados[i].categoria}</p>
+            <p>Vibe: ${dados[i].vibe}</p>
+            <p class="star">${estrelas}</p>
+          </div>
+          </a>`;
+
+          }
+        })
+        .catch(function (erro) {
+          console.log(erro);
+        });
+    }
+  }
+
+  function naoVisitado() {
+    let fkUsuario = sessionStorage.ID_USUARIO;
     let vibe = sel_vibe.value;
     let categoria = sel_categoria.value;
     let preferencia = sel_preferencia.value;
-    let novidade = inp_novidade.checked;
-
-    let fkUsuario = sessionStorage.ID_USUARIO;
+    let visita = inp_novidade.checked
 
 
-    fetch("http://localhost:3333/restaurantes/buscar", {
+    document.getElementById('aparecer').style.display = 'flex';
+    window.location.href = "#sugestao";
+
+    fetch("http://localhost:3333/restaurantes/naoVisitado", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -160,7 +235,8 @@
         categoriaServer: categoria,
         vibeServer: vibe,
         preferenciaServer: preferencia,
-        fkUsuarioServer: fkUsuario
+        fkUsuarioServer: fkUsuario,
+        visitaServer: visita
       }),
     })
 
@@ -170,6 +246,13 @@
 
       .then(function (dados) {
         aparecer.style.display = "flex";
+        restaurante.innerHTML = ``;
+
+        if (dados.length == 0) {
+          restaurante.innerHTML = `Não achei :(`;
+          return;
+        }
+
 
         for (let i = 0; i < dados.length; i++) {
 
