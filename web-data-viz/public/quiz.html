@@ -19,13 +19,13 @@
             <h1 class="titulo">BITE 23</h1>
             <ul class="navbar">
                 <li>
-                    <a href="index.html"><img src="icon/home.png"></a>
+                    <a href="home.html"><img src="icon/home.png"></a>
                 </li>
                 <li>
                     <a href="sugestao.html"><img src="icon/search.png"></a>
                 </li>
                 <li class="agora">
-                    <a href="#"><img src="icon/star.png"></a>
+                    <a href="quiz.html"><img src="icon/star.png"></a>
                 </li>
             </ul>
         </div>
@@ -235,8 +235,12 @@
         } else {
             document.getElementById('fim').style.display = "flex";
             document.getElementById('jogo').style.display = "none";
-            mostrar_grafico();
             salvar_resposta();
+
+            setTimeout(() => {
+                mostrar_grafico();;
+            }, 1000);
+
         }
 
         atual++;
@@ -272,8 +276,12 @@
         } else {
             document.getElementById('fim').style.display = "flex";
             document.getElementById('jogo').style.display = "none";
-            mostrar_grafico();
             salvar_resposta();
+
+            setTimeout(() => {
+                mostrar_grafico();;
+            }, 1000);
+
         }
 
         atual++;
@@ -309,8 +317,12 @@
         } else {
             document.getElementById('fim').style.display = "flex";
             document.getElementById('jogo').style.display = "none";
-            mostrar_grafico();
             salvar_resposta();
+
+            setTimeout(() => {
+                mostrar_grafico();;
+            }, 1000);
+
         }
 
         atual++;
@@ -346,8 +358,12 @@
         } else {
             document.getElementById('fim').style.display = "flex";
             document.getElementById('jogo').style.display = "none";
-            mostrar_grafico();
             salvar_resposta();
+
+            setTimeout(() => {
+                mostrar_grafico();;
+            }, 1000);
+
         }
 
         atual++;
@@ -383,8 +399,12 @@
         } else {
             document.getElementById('fim').style.display = "flex";
             document.getElementById('jogo').style.display = "none";
-            mostrar_grafico();
             salvar_resposta();
+
+            setTimeout(() => {
+                mostrar_grafico();;
+            }, 1000);
+
         }
 
         atual++;
@@ -459,7 +479,7 @@
                 let maiorVibe = Math.max(...listaVibe);
                 let index = listaVibe.indexOf(maiorVibe);
 
-                kpi.innerHTML = `<p>VIBE DO MOMENTO:<br>${listaNomeVibe[index]}</p>`;
+                kpi.innerHTML += `<p>VIBE DO MOMENTO:<br>${listaNomeVibe[index]}</p>`;
 
                 const ctx1 = document.getElementById('grafico1');
 
@@ -477,8 +497,8 @@
                                 classica,
                                 chique
                             ],
-                            borderColor: 'rgb(255, 196, 107)',
-                            backgroundColor: 'rgba(255, 196, 108, 0.489)',
+                            borderColor: 'rgb(36, 54, 78)',
+                            backgroundColor: 'rgb(36, 54, 78)',
                             borderWidth: 1,
                             borderRadius: 10
                         }]
@@ -497,16 +517,16 @@
                 console.log(erro);
             });
 
-            fetch(`http://localhost:3333/restaurantes/favoritos`,)
+        fetch(`http://localhost:3333/restaurantes/favoritos`,)
             .then(resposta => resposta.json())
             .then(dados => {
                 console.log(dados);
                 let nomes = [];
                 let resultados = [];
 
-                for(let i = 0; i < dados.length; i ++){
+                for (let i = 0; i < dados.length; i++) {
                     nomes.push(dados[i].nomeRestaurante);
-                    resultados.push(dados[i].media);                    
+                    resultados.push(dados[i].media);
                 }
 
                 kpi.innerHTML += `<p>TOP 1 DOS USUÁRIOS:<br>${nomes[0]}</p>`;
@@ -522,8 +542,8 @@
 
                             data: resultados,
 
-                            borderColor: 'rgb(255, 196, 107)',
-                            backgroundColor: 'rgba(255, 196, 108, 0.489)',
+                            borderColor: 'rgb(36, 54, 78)',
+                            backgroundColor: 'rgb(36, 54, 78)',
                             borderWidth: 1,
                             borderRadius: 10
                         }]

@@ -40,4 +40,8 @@ router.post("/naoVisitado", function (req, res) {
     restauranteController.naoVisitado(req, res);
 });
 
+router.get("/verAnotacao/:id", function (req, res) {
+    restauranteController.verAnotacao(req, res);
+});
+
 module.exports = router;

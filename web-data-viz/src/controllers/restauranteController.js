@@ -21,15 +21,15 @@ function autenticar(req, res) {
                         res.json(resultadoAutenticar);
 
                     } else if (resultadoAutenticar.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
+                        res.status(403).send("Nome e/ou localização inválido(s)");
                     } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                        res.status(403).send("Esse restaurante já foi cadastrado!");
                     }
                 }
             ).catch(
                 function (erro) {
                     console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    console.log("\nHouve um erro ao realizar o cadastro! Erro: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             );
@@ -93,7 +93,6 @@ function anotar(req, res) {
     var fkRestaurante = req.body.fkRestauranteServer;
     var anotacao = req.body.anotacaoServer;
     var star = req.body.starServer;
-    var visita = req.body.visitaServer;
 
     console.log(req.body);
 
@@ -105,7 +104,7 @@ function anotar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo restauranteModel.js
-        restauranteModel.anotar(fkUsuario, fkRestaurante, anotacao, star, visita)
+        restauranteModel.anotar(fkUsuario, fkRestaurante, anotacao, star)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -127,11 +126,8 @@ function buscar(req, res) {
     var categoria = req.body.categoriaServer;
     var vibe = req.body.vibeServer;
     var preferencia = req.body.preferenciaServer;
-    var fkUsuario = req.body.fkUsuarioServer;
-    var anotacao = req.body.anotacaoServer;
-    var classificacao = req.body.classificacaoServer;
-
-    restauranteModel.buscar(categoria, vibe, preferencia, fkUsuario, anotacao)
+    
+    restauranteModel.buscar(categoria, vibe, preferencia)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -239,10 +235,8 @@ function naoVisitado(req, res) {
     var vibe = req.body.vibeServer;
     var preferencia = req.body.preferenciaServer;
     var fkUsuario = req.body.fkUsuarioServer;
-    var classificacao = req.body.classificacaoServer;
-    var visita = req.body.visitaServer;
 
-    restauranteModel.naoVisitado(categoria, vibe, preferencia, fkUsuario, classificacao, visita)
+    restauranteModel.naoVisitado(categoria, vibe, preferencia, fkUsuario)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -259,6 +253,26 @@ function naoVisitado(req, res) {
         );
 }
 
+function verAnotacao(req, res) {
+    const id = req.params.id;
+
+    restauranteModel.verAnotacao(id)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao mostrar resultado! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -268,5 +282,6 @@ module.exports = {
     salvarResposta,
     buscarResultado,
     favoritos,
-    naoVisitado
+    naoVisitado,
+    verAnotacao
 }

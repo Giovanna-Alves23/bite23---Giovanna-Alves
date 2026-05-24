@@ -1,3 +1,4 @@
+const { verAnotacoes } = require("../controllers/restauranteController");
 var database = require("../database/config")
 
 function autenticar(nome, localizacao) {
@@ -26,29 +27,28 @@ function cadastrar(nome, descricao, horario, localizacao, categoria, vibe, prefe
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function anotar(fkUsuario, fkRestaurante, anotacao, star, visita) {
-    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function anotar():", fkUsuario, fkRestaurante, anotacao, star, visita);
+function anotar(fkUsuario, fkRestaurante, anotacao, star) {
+    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function anotar():", fkUsuario, fkRestaurante, anotacao, star);
 
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO usuarioRestaurante (fkUsuario, fkRestaurante, anotacao, classificacao, visita) 
-        VALUES ('${fkUsuario}', '${fkRestaurante}', '${anotacao}', '${star}', ${visita})
+        INSERT INTO usuarioRestaurante (fkUsuario, fkRestaurante, anotacao, classificacao) 
+        VALUES ('${fkUsuario}', '${fkRestaurante}', '${anotacao}', '${star}')
         ON DUPLICATE KEY UPDATE anotacao = VALUES (anotacao),
-        classificacao = VALUES (classificacao),
-        visita = VALUES (visita);
+        classificacao = VALUES (classificacao);
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function buscar(categoria, vibe, preferencia, fkUsuario, classificacao) {
-    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscar():", categoria, vibe, preferencia, fkUsuario, classificacao);
+function buscar(categoria, vibe, preferencia) {
+    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscar():", categoria, vibe, preferencia);
 
     var instrucaoSql = `
-        SELECT idRestaurante, nomeRestaurante, categoria, vibe, classificacao FROM restaurante
-        LEFT JOIN usuarioRestaurante ON idRestaurante = fkRestaurante
-        AND fkUsuario = ${fkUsuario}
+        SELECT idRestaurante, nomeRestaurante, categoria, vibe, 
+        (SELECT ROUND(AVG(classificacao)) 
+        FROM usuarioRestaurante s WHERE r.idRestaurante = s.fkRestaurante) classificacao FROM restaurante r
         WHERE categoria = '${categoria}' AND vibe = '${vibe}' 
         AND preferencia = '${preferencia}';
     `;
@@ -61,9 +61,10 @@ function buscarPorId(id, fkUsuario) {
     console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarPorId():", id, fkUsuario);
 
     var instrucaoSql = `
-    SELECT nomeRestaurante, descricao, horario, localizacao, visita, anotacao, classificacao
-    FROM usuarioRestaurante 
-    LEFT JOIN restaurante ON idRestaurante = ${id} AND fkUsuario = ${fkUsuario}
+    SELECT r.nomeRestaurante, r.descricao, r.horario, r.localizacao, s.anotacao, s.classificacao
+    FROM restaurante r
+    LEFT JOIN usuarioRestaurante s ON s.fkRestaurante = r.idRestaurante AND s.fkUsuario = ${fkUsuario}
+    WHERE idRestaurante = ${id}
     `;
 
     console.log("Executando SQL:\n" + instrucaoSql);
@@ -115,15 +116,29 @@ function favoritos() {
     return database.executar(instrucaoSql);
 }
 
-function naoVisitado(categoria, vibe, preferencia, fkUsuario, classificacao, visita){
-    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function naoVisitado():", categoria, vibe, preferencia, fkUsuario, classificacao, visita);
+function naoVisitado(categoria, vibe, preferencia, fkUsuario) {
+    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function naoVisitado():", categoria, vibe, preferencia, fkUsuario);
 
     var instrucaoSql = `
-        SELECT idRestaurante, nomeRestaurante, categoria, vibe, classificacao FROM restaurante
-        LEFT JOIN usuarioRestaurante ON idRestaurante = fkRestaurante
-        AND fkUsuario = ${fkUsuario}
+        SELECT idRestaurante, nomeRestaurante, categoria, vibe,
+        (SELECT ROUND(AVG(classificacao)) 
+        FROM usuarioRestaurante s WHERE r.idRestaurante = s.fkRestaurante) classificacao FROM restaurante r
+        LEFT JOIN usuarioRestaurante s ON fkUsuario = ${fkUsuario} AND r.idRestaurante = s.fkRestaurante
         WHERE categoria = '${categoria}' AND vibe = '${vibe}' 
-        AND preferencia = '${preferencia} AND visita <> 1';
+        AND preferencia = '${preferencia}' AND s.fkUsuario IS NULL;
+    `;
+
+    console.log("Executando SQL:\n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function verAnotacao(id) {
+    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verAnotacoes():", id);
+
+    var instrucaoSql = `
+        SELECT nomeUsuario, anotacao, classificacao FROM usuarioRestaurante
+        JOIN usuario ON idUsuario = fkUsuario
+        WHERE fkRestaurante = ${id};
     `;
 
     console.log("Executando SQL:\n" + instrucaoSql);
@@ -139,5 +154,6 @@ module.exports = {
     salvarResposta,
     buscarResultado,
     favoritos,
-    naoVisitado
+    naoVisitado,
+    verAnotacao
 };

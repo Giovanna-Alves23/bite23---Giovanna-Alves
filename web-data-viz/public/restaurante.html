@@ -19,7 +19,7 @@
             <h1 class="titulo">BITE 23</h1>
             <ul class="navbar">
                 <li>
-                    <a href="index.html"><img src="icon/home.png"></a>
+                    <a href="home.html"><img src="icon/home.png"></a>
                 </li>
                 <li class="agora">
                     <a href="#"><img src="icon/search.png"></a>
@@ -75,14 +75,14 @@
     <div class="adicionais">
 
         <div class="anotacao">
-            <label for="anotacao">ADICIONAR ANOTAÇÃO</label>
+            <label for="anotacao">SUA ANOTAÇÃO</label>
             <div class="container1">
                 <textarea id="inp_anotacao" type="text"></textarea>
             </div>
         </div>
 
         <div class="classificacao">
-            <label for="classificacao">ADICIONAR CLASSIFICAÇÃO</label>
+            <label for="classificacao">SUA CLASSIFICAÇÃO</label>
             <div class="estrela">
                 <input type="radio" id="estrela5" name="classificacao" value="5" />
                 <label for="estrela5">★</label>
@@ -98,12 +98,18 @@
         </div>
 
     </div>
-    <div class="botao">
+    <div class="botoes">
         <div>
-            <button class="button1" onclick="anotar()">ANOTAR</button>
+            <button class="button1" onclick="anotar()">ANOTAR</button><br>
+        </div>
+
+        <div>
+            <button class="button1" onclick="ver_anotacoes()">VER ANOTAÇÕES DE USUÁRIOS</button>
         </div>
     </div>
     </div>
+
+    <div class="comentarios" id="comentarios"></div>
 
 
 </body>
@@ -124,6 +130,10 @@
                 div_horario.innerHTML = dados.horario;
                 div_localizacao.innerHTML = dados.localizacao;
                 inp_anotacao.value = dados.anotacao;
+
+                if (dados.anotacao != null) {
+                    visitou.checked = true;
+                }
 
                 if (dados.classificacao > 0) {
                     document.getElementById(`estrela${dados.classificacao}`).checked = true;
@@ -168,8 +178,7 @@
                 fkUsuarioServer: fkUsuario,
                 fkRestauranteServer: fkRestaurante,
                 anotacaoServer: anotacao,
-                starServer: star,
-                visitaServer: visita
+                starServer: star
             }),
         })
             .then(function (resposta) {
@@ -179,8 +188,7 @@
 
                     setTimeout(() => {
                         alert('Sua anotação e classificação foram guardadas!');
-                        window.location = "sugestao.html";
-                    }, "2000");
+                    }, "1000");
 
                 } else {
                     throw "Houve um erro ao tentar cadastrar anotação e classificação!";
@@ -192,4 +200,42 @@
 
         return false;
     }
+
+    function ver_anotacoes() {
+        
+        const parametros = new URLSearchParams(window.location.search);
+        const id = parametros.get("id");
+        
+        let comentarios = document.getElementById('comentarios');
+        comentarios.innerHTML = ``;
+
+        fetch(`http://localhost:3333/restaurantes/verAnotacao/${id}`,)
+            .then(resposta => resposta.json())
+            .then(dados => {
+
+                for (let i = 0; i < dados.length; i++) {
+
+                    let estrelas = "☆☆☆☆☆";
+
+                    if (dados[i].classificacao) {
+                        estrelas =
+                            "★".repeat(dados[i].classificacao) +
+                            "☆".repeat(5 - dados[i].classificacao);
+                    }
+
+                    comentarios.innerHTML += `
+                    <div class="box_comentarios">
+                    <h2>${dados[i].nomeUsuario}</h2>
+                    <p> ${dados[i].anotacao}</p>
+                    <p class="star">${estrelas}</p>
+                    </div>`;
+                }
+                comentarios.scrollIntoView({ behavior: "smooth" });
+
+            })
+            .catch(erro => {
+                console.log(erro);
+            });
+    }
+
 </script>

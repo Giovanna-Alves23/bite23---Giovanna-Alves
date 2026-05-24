@@ -19,7 +19,7 @@
             <h1 class="titulo">BITE 23</h1>
             <ul class="navbar">
                 <li>
-                    <a href="index.html"><img src="icon/home.png"></a>
+                    <a href="home.html"><img src="icon/home.png"></a>
                 </li>
                 <li class="agora">
                     <a href="#"><img src="icon/search.png"></a>
@@ -118,11 +118,12 @@ Estado, CEP"></textarea>
         let categoria = document.querySelector('input[name="categoria"]:checked')?.value;
         let vibe = document.querySelector('input[name="vibe"]:checked')?.value;
         let preferencia = document.querySelector('input[name="preferencia"]:checked')?.value;
-        console.log(categoria, vibe, preferencia)
+
+        console.log(categoria, vibe, preferencia);
 
         if (nome == '' || descricao == '' || horario == '' ||
-            localizacao == '' || categoria == '' || vibe == '' || preferencia == '') {
-            alert('✨Preencha todos os campos✨')
+            localizacao == '' || !categoria.checked || !vibe.checked || !preferencia.checked) {
+            alert('✨Preencha todos os campos✨');
                 return;
         }
 

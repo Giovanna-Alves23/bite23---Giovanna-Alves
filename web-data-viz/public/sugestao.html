@@ -19,7 +19,7 @@
       <h1 class="titulo">BITE 23</h1>
       <ul class="navbar">
         <li>
-          <a href="index.html"><img src="icon/home.png"></a>
+          <a href="home.html"><img src="icon/home.png"></a>
         </li>
         <li class="agora">
           <a href="#"><img src="icon/search.png"></a>
@@ -44,7 +44,7 @@
               <select class="inp" id="sel_vibe">
                 <option class="option" selected disabled value="#"></option>
                 <option class="option" value="aconchegante">Aconchegante</option>
-                <option class="option" value="romantica">Romantica</option>
+                <option class="option" value="romantica">Romântica</option>
                 <option class="option" value="despojada">Despojada</option>
                 <option class="option" value="classica">Clássica</option>
                 <option class="option" value="chique">Chique</option>
@@ -165,8 +165,7 @@
           // Agora vá para o arquivo routes/restaurantes.js
           categoriaServer: categoria,
           vibeServer: vibe,
-          preferenciaServer: preferencia,
-          fkUsuarioServer: fkUsuario
+          preferenciaServer: preferencia
         }),
       })
 
@@ -218,7 +217,6 @@
     let vibe = sel_vibe.value;
     let categoria = sel_categoria.value;
     let preferencia = sel_preferencia.value;
-    let visita = inp_novidade.checked
 
 
     document.getElementById('aparecer').style.display = 'flex';
@@ -235,8 +233,7 @@
         categoriaServer: categoria,
         vibeServer: vibe,
         preferenciaServer: preferencia,
-        fkUsuarioServer: fkUsuario,
-        visitaServer: visita
+        fkUsuarioServer: fkUsuario
       }),
     })
 

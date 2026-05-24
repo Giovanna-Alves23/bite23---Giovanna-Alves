@@ -55,30 +55,30 @@
 
 </html>
 <script>
-    let validacaoFeita = false
+    let validacaoFeita = false;
 
     function cadastrar() {
-        let nome = inp_nome.value
-        let email = inp_email.value
-        let senha = inp_senha.value
-        let senhaConfirmada = inp_confirmacao.value
-        let verificacaoEmailArroba = email.indexOf('@')
-        let verificacaoEmailPonto = email.indexOf('.')
+        let nome = inp_nome.value;
+        let email = inp_email.value;
+        let senha = inp_senha.value;
+        let senhaConfirmada = inp_confirmacao.value;
+        let verificacaoEmailArroba = email.indexOf('@');
+        let verificacaoEmailPonto = email.indexOf('.');
 
         if (nome == '' || email == '' || senha == '' || senhaConfirmada == '') {
-            alert('✨Preencha todos os campos✨')
+            alert('✨Preencha todos os campos✨');
         } else {
             if (verificacaoEmailArroba == -1) {
-                alert('Insira um email válido')
-                validacaoFeita = false
+                alert('Insira um email válido');
+                validacaoFeita = false;
             } else if (verificacaoEmailPonto == -1) {
-                alert('Insira um email válido')
-                validacaoFeita = false
+                alert('Insira um email válido');
+                validacaoFeita = false;
             } else if (senha != senhaConfirmada) {
-                alert('As senhas não se coincidem')
-                validacaoFeita = false
+                alert('As senhas não se coincidem');
+                validacaoFeita = false;
             } else {
-                validacaoFeita = true
+                validacaoFeita = true;
             }
         }
 
@@ -99,8 +99,9 @@
             .then(function (resposta) {
                 console.log("resposta: ", resposta);
 
+
                 if (resposta.ok) {
-        
+
                     setTimeout(() => {
                         window.location = "login.html";
                     }, "2000");
@@ -116,7 +117,7 @@
         return false;
     }
 
-        function validar() {
+    function validar() {
         let senha = inp_senha.value;
         let senhaConfirmada = inp_confirmacao.value;
         let tamanho = senha.length;
@@ -150,62 +151,15 @@
     }
 
     function senhasCoincidem() {
-        let senha = inp_senha.value
-        let senhaConfirmada = inp_confirmacao.value
-
-        if (senha != senhaConfirmada) {
-            validacao2.innerHTML = `As senhas não se coincidem`
-            validacaoFeita = false
-        } else {
-            validacao2.innerHTML = ''
-            validacaoFeita = true
-        }
-    }
-
-        function validar() {
         let senha = inp_senha.value;
         let senhaConfirmada = inp_confirmacao.value;
-        let tamanho = senha.length;
-        let senhaMaiuscula = senha.toUpperCase();
-        let senhaMinuscula = senha.toLowerCase();
-        let especial = ['!', '@', '#', '$', '%', '&', '*', '~', ';', '.', ',', '/', '+', '-', '=', '|'];
-        let temEspecial = false;
-
-
-        if (tamanho < 8) {
-            validacao.innerHTML = `A senha precisa ter no mínimo 8 caracteres`
-        } else if (senha == senhaMaiuscula) {
-            validacao.innerHTML = 'A senha precisa conter ao menos uma letra minúscula'
-        } else if (senha == senhaMinuscula) {
-            validacao.innerHTML = 'A senha precisa conter ao menos uma letra maiúscula'
-        } else {
-            for (let i = 0; i < tamanho; i++) {
-                if (especial.includes(senha[i])) {
-                    temEspecial = true;
-                    break;
-                }
-            }
-
-            if (!temEspecial) {
-                validacao.innerHTML = 'A senha precisa ter pelo menos um caractere especial'
-            } else {
-                validacao.innerHTML = ``
-                validacaoFeita = true
-            }
-        }
-    }
-
-    function senhasCoincidem() {
-        let senha = inp_senha.value
-        let senhaConfirmada = inp_confirmacao.value
 
         if (senha != senhaConfirmada) {
-            validacao2.innerHTML = `As senhas não se coincidem`
-            validacaoFeita = false
+            validacao2.innerHTML = `As senhas não se coincidem`;
+            validacaoFeita = false;
         } else {
             validacao2.innerHTML = ''
-            validacaoFeita = true
+            validacaoFeita = true;
         }
     }
-
 </script>
