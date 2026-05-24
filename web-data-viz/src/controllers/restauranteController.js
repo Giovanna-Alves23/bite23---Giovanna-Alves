@@ -126,7 +126,7 @@ function buscar(req, res) {
     var categoria = req.body.categoriaServer;
     var vibe = req.body.vibeServer;
     var preferencia = req.body.preferenciaServer;
-    
+
     restauranteModel.buscar(categoria, vibe, preferencia)
         .then(
             function (resultado) {
@@ -137,6 +137,24 @@ function buscar(req, res) {
                 console.log(erro);
                 console.log(
                     "\nHouve um erro ao buscar restaurante! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function mostrarRestaurantes(req,res) {
+    restauranteModel.mostrarRestaurantes()
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao mostrar resultado! Erro: ",
                     erro.sqlMessage
                 );
                 res.status(500).json(erro.sqlMessage);
@@ -253,6 +271,26 @@ function naoVisitado(req, res) {
         );
 }
 
+function mostrarNaoVisitado(req, res) {
+    var fkUsuario = req.body.fkUsuarioServer;
+
+    restauranteModel.mostrarNaoVisitado(fkUsuario)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao buscar todos os restaurantes não visitados! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 function verAnotacao(req, res) {
     const id = req.params.id;
 
@@ -278,10 +316,12 @@ module.exports = {
     cadastrar,
     anotar,
     buscar,
+    mostrarRestaurantes,
     buscarPorId,
     salvarResposta,
     buscarResultado,
     favoritos,
     naoVisitado,
+    mostrarNaoVisitado,
     verAnotacao
 }

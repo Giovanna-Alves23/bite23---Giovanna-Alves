@@ -20,6 +20,10 @@ router.post("/buscar", function (req, res) {
     restauranteController.buscar(req, res);
 });
 
+router.get("/mostrarRestaurantes", function (req, res) {
+    restauranteController.mostrarRestaurantes(req, res);
+});
+
 router.get("/buscarPorId/:id/:fkUsuario", function (req, res) {
     restauranteController.buscarPorId(req, res);
 });
@@ -38,6 +42,10 @@ router.get("/favoritos", function (req, res) {
 
 router.post("/naoVisitado", function (req, res) {
     restauranteController.naoVisitado(req, res);
+});
+
+router.post("/mostrarNaoVisitado", function (req, res) {
+    restauranteController.mostrarNaoVisitado(req, res);
 });
 
 router.get("/verAnotacao/:id", function (req, res) {

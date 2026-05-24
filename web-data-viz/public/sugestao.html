@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&dis">
 </head>
 
-<body onload="esconder()" class="background">
+<body class="background">
   <div class="header">
     <div class="container">
       <h1 class="titulo">BITE 23</h1>
@@ -106,29 +106,19 @@
       <div class="boxes">
         <h1 id="sugestao">SUGESTÕES:</h1>
 
-        <div class="box_cadastro" id="aparecer">
-          <div class="restaurante" id="restaurante">
-            <span id="nome_restaurante" class="box_restaurante"></span>
-            <span id="categoria_vibe"></span>
-          </div>
-        </div>
-
         <div>
           <a href="cadastro_restaurante.html" class="box_cadastro">+
-            <span>Adicionar novo restaurante</span>
+            <span id="sugestao">Adicionar novo restaurante</span>
           </a>
+        </div>
+
+        <div id="restaurante" </div>
         </div>
 
       </div>
     </div>
   </div>
   </div>
-
-  <script>
-    function esconder() {
-      document.getElementById('aparecer').style.display = 'none';
-    }
-  </script>
 
 </body>
 
@@ -141,47 +131,98 @@
     let visita = inp_novidade.checked;
     console.log(visita);
 
-    if (visita == true) {
-      console.log('entrei no if')
-      naoVisitado();
+    let fkUsuario = sessionStorage.ID_USUARIO;
+    let vibe = sel_vibe.value;
+    let categoria = sel_categoria.value;
+    let preferencia = sel_preferencia.value;
+
+    if (sel_categoria.value == '' || sel_preferencia.value == '' || sel_vibe.value) {
+      mostrarTodos();
+
     } else {
 
-      document.getElementById('aparecer').style.display = 'flex';
-      window.location.href = "#sugestao";
+      if (visita == true) {
+        console.log('entrei no if')
+        naoVisitado();
+      } else {
 
-      let fkUsuario = sessionStorage.ID_USUARIO;
-      let vibe = sel_vibe.value;
-      let categoria = sel_categoria.value;
-      let preferencia = sel_preferencia.value;
+        fetch("http://localhost:3333/restaurantes/buscar", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            // crie um atributo que recebe o valor recuperado aqui
+            // Agora vá para o arquivo routes/restaurantes.js
+            categoriaServer: categoria,
+            vibeServer: vibe,
+            preferenciaServer: preferencia
+          }),
+        })
+
+          .then(function (resposta) {
+            return resposta.json();
+          })
+
+          .then(function (dados) {
+            restaurante.innerHTML = ``;
+
+            if (dados.length == 0) {
+              restaurante.innerHTML = `Não achei :(`;
+              return;
+            }
 
 
-      fetch("http://localhost:3333/restaurantes/buscar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          // crie um atributo que recebe o valor recuperado aqui
-          // Agora vá para o arquivo routes/restaurantes.js
-          categoriaServer: categoria,
-          vibeServer: vibe,
-          preferenciaServer: preferencia
-        }),
-      })
+            for (let i = 0; i < dados.length; i++) {
 
+              let estrelas = "☆☆☆☆☆";
+
+              if (dados[i].classificacao) {
+                estrelas =
+                  "★".repeat(dados[i].classificacao) +
+                  "☆".repeat(5 - dados[i].classificacao);
+              }
+
+              console.log(dados[i].idRestaurante);
+              restaurante.innerHTML +=
+                `<a href="restaurante.html?id=${dados[i].idRestaurante}">
+                <div id="sugestao" class="box_restaurante">
+                  <h2>${dados[i].nomeRestaurante}</h2>
+                  <p>Categoria: ${dados[i].categoria}</p>
+                  <p>Vibe: ${dados[i].vibe}</p>
+                  <p class="star">${estrelas}</p>
+                  </div>
+                  </a>`;
+            }
+            document.getElementById("restaurante")
+              .scrollIntoView({ behavior: "smooth" });
+          })
+          .catch(function (erro) {
+            console.log(erro);
+          });
+      }
+    }
+  }
+
+  function mostrarTodos() {
+    let visita = inp_novidade.checked;
+
+    if (visita == true) {
+      console.log('entrei no if')
+      mostrarNaoVisitado();
+    } else {
+      fetch("http://localhost:3333/restaurantes/mostrarRestaurantes")
         .then(function (resposta) {
           return resposta.json();
         })
 
         .then(function (dados) {
-          aparecer.style.display = "flex";
           restaurante.innerHTML = ``;
 
           if (dados.length == 0) {
             restaurante.innerHTML = `Não achei :(`;
             return;
           }
-
 
           for (let i = 0; i < dados.length; i++) {
 
@@ -196,7 +237,7 @@
             console.log(dados[i].idRestaurante);
             restaurante.innerHTML +=
               `<a href="restaurante.html?id=${dados[i].idRestaurante}">
-          <div class="box_restaurante">
+          <div id="sugestao" class="box_restaurante">
             <h2>${dados[i].nomeRestaurante}</h2>
             <p>Categoria: ${dados[i].categoria}</p>
             <p>Vibe: ${dados[i].vibe}</p>
@@ -205,6 +246,8 @@
           </a>`;
 
           }
+          document.getElementById("restaurante")
+            .scrollIntoView({ behavior: "smooth" });
         })
         .catch(function (erro) {
           console.log(erro);
@@ -217,10 +260,6 @@
     let vibe = sel_vibe.value;
     let categoria = sel_categoria.value;
     let preferencia = sel_preferencia.value;
-
-
-    document.getElementById('aparecer').style.display = 'flex';
-    window.location.href = "#sugestao";
 
     fetch("http://localhost:3333/restaurantes/naoVisitado", {
       method: "POST",
@@ -242,7 +281,6 @@
       })
 
       .then(function (dados) {
-        aparecer.style.display = "flex";
         restaurante.innerHTML = ``;
 
         if (dados.length == 0) {
@@ -264,7 +302,7 @@
           console.log(dados[i].idRestaurante);
           restaurante.innerHTML +=
             `<a href="restaurante.html?id=${dados[i].idRestaurante}">
-          <div class="box_restaurante">
+          <div id="sugestao" class="box_restaurante">
             <h2>${dados[i].nomeRestaurante}</h2>
             <p>Categoria: ${dados[i].categoria}</p>
             <p>Vibe: ${dados[i].vibe}</p>
@@ -273,9 +311,69 @@
           </a>`;
 
         }
+        document.getElementById("restaurante")
+          .scrollIntoView({ behavior: "smooth" });
       })
       .catch(function (erro) {
         console.log(erro);
       });
   }
+
+  function mostrarNaoVisitado() {
+    let visita = inp_novidade.checked;
+    let fkUsuario = sessionStorage.ID_USUARIO;
+
+    fetch("http://localhost:3333/restaurantes/mostrarNaoVisitado", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fkUsuarioServer: fkUsuario
+      }),
+    })
+
+      .then(function (resposta) {
+        return resposta.json();
+      })
+
+      .then(function (dados) {
+        restaurante.innerHTML = ``;
+
+        if (dados.length == 0) {
+          restaurante.innerHTML = `Não achei :(`;
+          return;
+        }
+
+
+        for (let i = 0; i < dados.length; i++) {
+
+          let estrelas = "☆☆☆☆☆";
+
+          if (dados[i].classificacao) {
+            estrelas =
+              "★".repeat(dados[i].classificacao) +
+              "☆".repeat(5 - dados[i].classificacao);
+          }
+
+          console.log(dados[i].idRestaurante);
+          restaurante.innerHTML +=
+            `<a href="restaurante.html?id=${dados[i].idRestaurante}">
+          <div id="sugestao" class="box_restaurante">
+            <h2>${dados[i].nomeRestaurante}</h2>
+            <p>Categoria: ${dados[i].categoria}</p>
+            <p>Vibe: ${dados[i].vibe}</p>
+            <p class="star">${estrelas}</p>
+          </div>
+          </a>`;
+
+        }
+        document.getElementById("restaurante")
+          .scrollIntoView({ behavior: "smooth" });
+      })
+      .catch(function (erro) {
+        console.log(erro);
+      });
+  }
+
 </script>

@@ -1,4 +1,4 @@
-const { verAnotacoes } = require("../controllers/restauranteController");
+const { verAnotacoes, mostrar } = require("../controllers/restauranteController");
 var database = require("../database/config")
 
 function autenticar(nome, localizacao) {
@@ -51,6 +51,20 @@ function buscar(categoria, vibe, preferencia) {
         FROM usuarioRestaurante s WHERE r.idRestaurante = s.fkRestaurante) classificacao FROM restaurante r
         WHERE categoria = '${categoria}' AND vibe = '${vibe}' 
         AND preferencia = '${preferencia}';
+    `;
+
+    console.log("Executando SQL:\n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function mostrarRestaurantes() {
+    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function mostrarRestaurantes():");
+
+    var instrucaoSql = `
+        SELECT idRestaurante, nomeRestaurante, categoria, vibe,
+        (SELECT ROUND(AVG(classificacao)) 
+        FROM usuarioRestaurante s WHERE r.idRestaurante = s.fkRestaurante) classificacao 
+        FROM restaurante r LIMIT 15;
     `;
 
     console.log("Executando SQL:\n" + instrucaoSql);
@@ -132,6 +146,21 @@ function naoVisitado(categoria, vibe, preferencia, fkUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function mostrarNaoVisitado(fkUsuario) {
+    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function mostrarNaoVisitado():", fkUsuario);
+
+    var instrucaoSql = `
+        SELECT idRestaurante, nomeRestaurante, categoria, vibe,
+        (SELECT ROUND(AVG(classificacao)) 
+        FROM usuarioRestaurante s WHERE r.idRestaurante = s.fkRestaurante) classificacao FROM restaurante r
+        LEFT JOIN usuarioRestaurante s ON fkUsuario = ${fkUsuario} AND r.idRestaurante = s.fkRestaurante
+        WHERE s.fkUsuario IS NULL;
+    `;
+
+    console.log("Executando SQL:\n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function verAnotacao(id) {
     console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verAnotacoes():", id);
 
@@ -150,10 +179,12 @@ module.exports = {
     cadastrar,
     anotar,
     buscar,
+    mostrarRestaurantes,
     buscarPorId,
     salvarResposta,
     buscarResultado,
     favoritos,
     naoVisitado,
+    mostrarNaoVisitado,
     verAnotacao
 };

@@ -582,10 +582,6 @@ a {
         justify-content: center;
     }
 
-    .box_restaurante {
-        font-size: medium;
-    }
-
     h1 {
         font-size: 70px;
         text-align: center;
@@ -618,29 +614,38 @@ a {
         height: 200px;
         border-radius: 20px;
         color: #ffc46c;
-        margin: 30px;
-
-        span {
-            color: #ffffff;
-            font-size: large;
-        }
-
-        h2 {
-            font-size: 40px;
-            margin-block: 0;
-            color: #ffc46b;
-        }
-
-        p {
-            color: #ffc46b;
-        }
-
-        .star {
-            zoom: 200%;
-            margin-block: 0;
-        }
+        margin-bottom: 15px;
     }
 
+    .box_cadastro span {
+        font-size: 30px;
+    }
+
+}
+
+.box_restaurante {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #24364E;
+    width: 800px;
+    height: 200px;
+    border-radius: 20px;
+    color: #ffc46c;
+    margin: 30px;
+}
+
+.box_restaurante h2 {
+    font-size: 40px;
+    margin-block: 10px;
+}
+
+.box_restaurante p {
+    font-size: 20px;
+    margin-block: 10px;
 }
 
 .banner_cadastro_restaurante {
