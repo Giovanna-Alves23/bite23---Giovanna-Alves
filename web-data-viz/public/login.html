@@ -31,7 +31,6 @@
                     <div class="campo">
                         <span>Senha:</span>
                         <input type="password" id="inp_senha" placeholder="Insira a sua senha">
-                        <i class="fa-solid fa-eye olho" onclick="mostrar()"></i>
                     </div>
 
                 </div>
@@ -49,13 +48,12 @@
 
 </html>
 <script>
-
     function entrar() {
         let email = inp_email.value;
         let senha = inp_senha.value;
 
         if (email == '' || senha == '') {
-            alert('✨Preencha todos os campos✨')
+            alert('Preencha todos os campos')
         }
         console.log("FORM LOGIN: ", email);
         console.log("FORM SENHA: ", senha);
@@ -83,7 +81,7 @@
                     sessionStorage.ID_USUARIO = json[0].idUsuario;
                     sessionStorage.EMAIL_USUARIO = json[0].email;
 
-                    
+
                     window.location.href = "sugestao.html"
                 });
 
@@ -102,12 +100,4 @@
             console.log(erro);
         })
     }
-
-   /* function mostrar() {
-        if (inp_senha.type === "password") {
-            inp_senha.type = "text";
-        } else {
-            inp_senha.type = "password";
-        }
-    }*/
 </script>

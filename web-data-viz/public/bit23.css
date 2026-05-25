@@ -182,6 +182,7 @@ a {
     }
 
     .box {
+        height: 350px;
 
         h4 {
             width: 100%;
@@ -641,7 +642,7 @@ a {
 .box_restaurante h2 {
     font-size: 40px;
     margin-block: 10px;
-} 
+}
 
 .box_restaurante h1 {
     font-weight: normal;
@@ -1269,8 +1270,7 @@ a {
             display: flex;
             font-weight: lighter;
             text-align: center;
-            margin-block: 50px;
-            width: 100%;
+            width: fit-content;
             justify-content: center;
 
             p {
@@ -1281,6 +1281,31 @@ a {
             }
         }
 
+    }
+
+    .kpis {
+        display: flex;
+        align-items: center;
+        height: 150px;
+    }
+
+    .graficos h2 {
+        display: flex;
+        justify-content: center;
+        font-weight: normal;
+        margin-top: 0;
+    }
+
+    .graficos canvas {
+        height: 200px;
+    }
+
+    .graficos .grafico2 {
+        margin-bottom: 25px;
+    }
+
+    .grafico1 h2 {
+        margin-bottom: 53px;
     }
 
     .resultado {
@@ -1298,6 +1323,7 @@ a {
         display: flex;
         justify-content: center;
         width: 40%;
+        align-items: flex-end;
 
         .grafico {
             margin-inline: 10px;

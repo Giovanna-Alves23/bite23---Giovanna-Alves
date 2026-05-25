@@ -87,11 +87,20 @@
             <div id="dash" class="container">
                 <label class="texto1">RESULTADO!</label>
 
-                <div id="kpi" class="kpi"></div>
+                <div class="kpis">
+                    <div id="kpi1" class="kpi"></div>
+                    <div id="kpi2" class="kpi"></div>
+                </div>
 
                 <div class="graficos" id="div">
-                    <canvas class="grafico" id="grafico1"></canvas>
-                    <canvas class="grafico" id="grafico2"></canvas>
+                    <div class="grafico1">
+                        <h2>Suas vibes</h2>
+                        <canvas class="grafico" id="grafico1"></canvas>
+                    </div>
+                    <div class="grafico2">
+                        <h2>Top 5 dos usuários</h2>
+                        <canvas class="grafico" id="grafico2"></canvas>
+                    </div>
                 </div>
 
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -449,7 +458,7 @@
                     }, "2000");
 
                 } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
+                    throw "Houve um erro ao tentar salvar respostas!";
                 }
             })
             .catch(function (resposta) {
@@ -463,7 +472,10 @@
     function mostrar_grafico() {
         let fkUsuario = sessionStorage.ID_USUARIO;
 
-        fetch(`http://localhost:3333/restaurantes/buscarResultado/${fkUsuario}`,)
+        fetch(`http://localhost:3333/restaurantes/buscarResultado/${fkUsuario}`, {
+            method: "GET"
+
+        })
             .then(resposta => resposta.json())
             .then(dados => {
                 let resultado = dados[0];
@@ -479,7 +491,7 @@
                 let maiorVibe = Math.max(...listaVibe);
                 let index = listaVibe.indexOf(maiorVibe);
 
-                kpi.innerHTML += `<p>VIBE DO MOMENTO:<br>${listaNomeVibe[index]}</p>`;
+                kpi1.innerHTML += `<p>VIBE DO MOMENTO:<br>${listaNomeVibe[index]}</p>`;
 
                 const ctx1 = document.getElementById('grafico1');
 
@@ -517,7 +529,10 @@
                 console.log(erro);
             });
 
-        fetch(`http://localhost:3333/restaurantes/favoritos`,)
+        fetch(`http://localhost:3333/restaurantes/favoritos`, {
+            method: "GET"
+
+        })
             .then(resposta => resposta.json())
             .then(dados => {
                 console.log(dados);
@@ -529,7 +544,7 @@
                     resultados.push(dados[i].media);
                 }
 
-                kpi.innerHTML += `<p>TOP 1 DOS USUÁRIOS:<br>${nomes[0]}</p>`;
+                kpi2.innerHTML += `<p>TOP 1 DOS USUÁRIOS:<br>${nomes[0]}</p>`;
 
                 const ctx1 = document.getElementById('grafico2');
 

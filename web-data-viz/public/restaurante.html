@@ -122,7 +122,9 @@
         const id = parametros.get("id");
         let fkUsuario = sessionStorage.ID_USUARIO;
 
-        fetch(`http://localhost:3333/restaurantes/buscarPorId/${id}/${fkUsuario}`,)
+        fetch(`http://localhost:3333/restaurantes/buscarPorId/${id}/${fkUsuario}`, {
+            method: "GET"
+        })
             .then(resposta => resposta.json())
             .then(dados => {
                 nome_restaurante.innerHTML = dados.nomeRestaurante;
@@ -148,11 +150,6 @@
     function anotar() {
         let anotacao = inp_anotacao.value;
         let star = 0;
-        let visita = 0;
-
-        if (visitou.checked) {
-            visita = 1;
-        }
 
         let fkUsuario = sessionStorage.ID_USUARIO;
         const parametros = new URLSearchParams(window.location.search);
@@ -202,14 +199,17 @@
     }
 
     function ver_anotacoes() {
-        
+
         const parametros = new URLSearchParams(window.location.search);
         const id = parametros.get("id");
-        
+
         let comentarios = document.getElementById('comentarios');
         comentarios.innerHTML = ``;
 
-        fetch(`http://localhost:3333/restaurantes/verAnotacao/${id}`,)
+        fetch(`http://localhost:3333/restaurantes/verAnotacao/${id}`, {
+            method: "GET"
+
+        })
             .then(resposta => resposta.json())
             .then(dados => {
 

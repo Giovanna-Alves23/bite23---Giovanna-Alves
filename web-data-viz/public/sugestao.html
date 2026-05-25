@@ -124,11 +124,7 @@
 
 </html>
 <script>
-  listaVibe = ['Aconchegante', 'Romântica', 'Despojada', 'Clássica', 'Chique'];
-  listaCategoria = ['Hamburguer', 'Pizza', 'Sushi', 'Comida', 'Massa', 'Hotdog', 'Pastel'];
-
   function buscar() {
-
     let fkUsuario = sessionStorage.ID_USUARIO;
     let vibe = sel_vibe.value;
     let categoria = sel_categoria.value;
@@ -168,7 +164,7 @@
           .then(function (dados) {
             restaurante.innerHTML = ``;
 
-            if (dados.length == 0) {
+            if (dados.length == 0) { 
               restaurante.innerHTML = `<div class="box_restaurante">
                   <h1>Não achei : (</h1>
                   </div>`;
@@ -177,7 +173,6 @@
                 .scrollIntoView({ behavior: "smooth" });
               return;
             }
-
 
             for (let i = 0; i < dados.length; i++) {
 
@@ -217,7 +212,10 @@
       console.log('entrei no if')
       mostrarNaoVisitado();
     } else {
-      fetch("http://localhost:3333/restaurantes/mostrarRestaurantes")
+      fetch("http://localhost:3333/restaurantes/mostrarRestaurantes", {
+        method: "GET"
+
+      })
         .then(function (resposta) {
           return resposta.json();
         })
