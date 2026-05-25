@@ -641,6 +641,10 @@ a {
 .box_restaurante h2 {
     font-size: 40px;
     margin-block: 10px;
+} 
+
+.box_restaurante h1 {
+    font-weight: normal;
 }
 
 .box_restaurante p {
@@ -1106,6 +1110,14 @@ a {
     justify-content: center;
     margin-block: 30px;
 
+}
+
+.box_comentarios p {
+    text-align: center;
+}
+
+.box_comentarios h2 {
+    text-transform: uppercase;
 }
 
 .comentarios {

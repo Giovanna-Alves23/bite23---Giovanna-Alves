@@ -128,18 +128,19 @@
   listaCategoria = ['Hamburguer', 'Pizza', 'Sushi', 'Comida', 'Massa', 'Hotdog', 'Pastel'];
 
   function buscar() {
-    let visita = inp_novidade.checked;
-    console.log(visita);
 
     let fkUsuario = sessionStorage.ID_USUARIO;
     let vibe = sel_vibe.value;
     let categoria = sel_categoria.value;
     let preferencia = sel_preferencia.value;
+    console.log(vibe, preferencia, categoria);
 
-    if (sel_categoria.value == '' || sel_preferencia.value == '' || sel_vibe.value) {
+    if (vibe == '#' || categoria == '#' || preferencia == '#') {
       mostrarTodos();
 
     } else {
+      let visita = inp_novidade.checked;
+      console.log(visita);
 
       if (visita == true) {
         console.log('entrei no if')
@@ -168,7 +169,12 @@
             restaurante.innerHTML = ``;
 
             if (dados.length == 0) {
-              restaurante.innerHTML = `Não achei :(`;
+              restaurante.innerHTML = `<div class="box_restaurante">
+                  <h1>Não achei : (</h1>
+                  </div>`;
+
+              document.getElementById("restaurante")
+                .scrollIntoView({ behavior: "smooth" });
               return;
             }
 
@@ -186,7 +192,7 @@
               console.log(dados[i].idRestaurante);
               restaurante.innerHTML +=
                 `<a href="restaurante.html?id=${dados[i].idRestaurante}">
-                <div id="sugestao" class="box_restaurante">
+                <div class="box_restaurante">
                   <h2>${dados[i].nomeRestaurante}</h2>
                   <p>Categoria: ${dados[i].categoria}</p>
                   <p>Vibe: ${dados[i].vibe}</p>
@@ -237,7 +243,7 @@
             console.log(dados[i].idRestaurante);
             restaurante.innerHTML +=
               `<a href="restaurante.html?id=${dados[i].idRestaurante}">
-          <div id="sugestao" class="box_restaurante">
+          <div class="box_restaurante">
             <h2>${dados[i].nomeRestaurante}</h2>
             <p>Categoria: ${dados[i].categoria}</p>
             <p>Vibe: ${dados[i].vibe}</p>
@@ -302,7 +308,7 @@
           console.log(dados[i].idRestaurante);
           restaurante.innerHTML +=
             `<a href="restaurante.html?id=${dados[i].idRestaurante}">
-          <div id="sugestao" class="box_restaurante">
+          <div class="box_restaurante">
             <h2>${dados[i].nomeRestaurante}</h2>
             <p>Categoria: ${dados[i].categoria}</p>
             <p>Vibe: ${dados[i].vibe}</p>
@@ -359,7 +365,7 @@
           console.log(dados[i].idRestaurante);
           restaurante.innerHTML +=
             `<a href="restaurante.html?id=${dados[i].idRestaurante}">
-          <div id="sugestao" class="box_restaurante">
+          <div class="box_restaurante">
             <h2>${dados[i].nomeRestaurante}</h2>
             <p>Categoria: ${dados[i].categoria}</p>
             <p>Vibe: ${dados[i].vibe}</p>
