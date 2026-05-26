@@ -468,12 +468,17 @@
         return false;
     }
 
-
     function mostrar_grafico() {
         let fkUsuario = sessionStorage.ID_USUARIO;
 
-        fetch(`http://localhost:3333/restaurantes/buscarResultado/${fkUsuario}`, {
-            method: "GET"
+        fetch(`http://localhost:3333/restaurantes/buscarResultado`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fkUsuarioServer: fkUsuario
+            }),
 
         })
             .then(resposta => resposta.json())
@@ -488,7 +493,7 @@
 
                 let listaVibe = [resultado.aconchegante, resultado.romantica, resultado.despojada, resultado.classica, resultado.chique];
                 let listaNomeVibe = ['ACONCHEGANTE', 'ROMÂNTICA', 'DESPOJADA', 'CLÁSSICA', 'CHIQUE'];
-                let maiorVibe = Math.max(...listaVibe);
+                let maiorVibe = Math.max(...listaVibe); 
                 let index = listaVibe.indexOf(maiorVibe);
 
                 kpi1.innerHTML += `<p>VIBE DO MOMENTO:<br>${listaNomeVibe[index]}</p>`;
@@ -509,8 +514,8 @@
                                 classica,
                                 chique
                             ],
-                            borderColor: 'rgb(36, 54, 78)',
-                            backgroundColor: 'rgb(36, 54, 78)',
+                            borderColor: 'rgb(100, 131, 172)',
+                            backgroundColor: 'rgb(100, 131, 172)',
                             borderWidth: 1,
                             borderRadius: 10
                         }]
@@ -557,8 +562,8 @@
 
                             data: resultados,
 
-                            borderColor: 'rgb(36, 54, 78)',
-                            backgroundColor: 'rgb(36, 54, 78)',
+                            borderColor: 'rgb(100, 131, 172)',
+                            backgroundColor: 'rgb(100, 131, 172)',
                             borderWidth: 1,
                             borderRadius: 10
                         }]

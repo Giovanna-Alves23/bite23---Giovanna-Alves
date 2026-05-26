@@ -119,11 +119,18 @@
 
     function mostrarRestaurante() {
         const parametros = new URLSearchParams(window.location.search);
-        const id = parametros.get("id");
+        const fkRestaurante = parametros.get("id");
         let fkUsuario = sessionStorage.ID_USUARIO;
 
-        fetch(`http://localhost:3333/restaurantes/buscarPorId/${id}/${fkUsuario}`, {
-            method: "GET"
+        fetch(`http://localhost:3333/restaurantes/buscarPorId`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fkUsuarioServer: fkUsuario,
+                fkRestauranteServer: fkRestaurante
+            }),
         })
             .then(resposta => resposta.json())
             .then(dados => {
@@ -137,7 +144,7 @@
                     visitou.checked = true;
                 }
 
-                if (dados.classificacao > 0) {
+                if (dados.classificacao > 0) { // pega qual a classificação do restaurante (ex: estrela4)
                     document.getElementById(`estrela${dados.classificacao}`).checked = true;
                 }
 
@@ -155,9 +162,7 @@
         const parametros = new URLSearchParams(window.location.search);
         let fkRestaurante = parametros.get("id");
 
-        let estrelaSelecionada = document.querySelector(
-            'input[name="classificacao"]:checked'
-        );
+        let estrelaSelecionada = document.querySelector('input[name="classificacao"]:checked');
 
         if (estrelaSelecionada) {
             star = Number(estrelaSelecionada.value);
@@ -199,15 +204,20 @@
     }
 
     function ver_anotacoes() {
-
         const parametros = new URLSearchParams(window.location.search);
-        const id = parametros.get("id");
+        const fkRestaurante = parametros.get("id");
 
         let comentarios = document.getElementById('comentarios');
         comentarios.innerHTML = ``;
 
-        fetch(`http://localhost:3333/restaurantes/verAnotacao/${id}`, {
-            method: "GET"
+        fetch(`http://localhost:3333/restaurantes/verAnotacao`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fkRestauranteServer: fkRestaurante
+            }),
 
         })
             .then(resposta => resposta.json())
@@ -218,13 +228,11 @@
                     let estrelas = "☆☆☆☆☆";
 
                     if (dados[i].classificacao) {
-                        estrelas =
-                            "★".repeat(dados[i].classificacao) +
-                            "☆".repeat(5 - dados[i].classificacao);
+                        estrelas = "★".repeat(dados[i].classificacao) + "☆".repeat(5 - dados[i].classificacao);
                     }
 
-                    comentarios.innerHTML += `
-                    <div class="box_comentarios">
+                    comentarios.innerHTML +=
+                        `<div class="box_comentarios">
                     <h2>${dados[i].nomeUsuario}</h2>
                     <p> ${dados[i].anotacao}</p>
                     <p class="star">${estrelas}</p>

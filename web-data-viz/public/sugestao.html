@@ -179,21 +179,19 @@
               let estrelas = "☆☆☆☆☆";
 
               if (dados[i].classificacao) {
-                estrelas =
-                  "★".repeat(dados[i].classificacao) +
-                  "☆".repeat(5 - dados[i].classificacao);
+                estrelas = "★".repeat(dados[i].classificacao) + "☆".repeat(5 - dados[i].classificacao);
               }
 
               console.log(dados[i].idRestaurante);
               restaurante.innerHTML +=
-                `<a href="restaurante.html?id=${dados[i].idRestaurante}">
-                <div class="box_restaurante">
-                  <h2>${dados[i].nomeRestaurante}</h2>
-                  <p>Categoria: ${dados[i].categoria}</p>
-                  <p>Vibe: ${dados[i].vibe}</p>
-                  <p class="star">${estrelas}</p>
-                  </div>
-                  </a>`;
+              `<a href="restaurante.html?id=${dados[i].idRestaurante}">
+              <div class="box_restaurante">
+              <h2>${dados[i].nomeRestaurante}</h2>
+              <p>Categoria: ${dados[i].categoria}</p>
+              <p>Vibe: ${dados[i].vibe}</p>
+              <p class="star">${estrelas}</p>
+              </div>
+              </a>`;
             }
             document.getElementById("restaurante")
               .scrollIntoView({ behavior: "smooth" });
@@ -224,7 +222,7 @@
           restaurante.innerHTML = ``;
 
           if (dados.length == 0) {
-            restaurante.innerHTML = `Não achei :(`;
+            restaurante.innerHTML = `Não achei : (`;
             return;
           }
 
@@ -233,21 +231,19 @@
             let estrelas = "☆☆☆☆☆";
 
             if (dados[i].classificacao) {
-              estrelas =
-                "★".repeat(dados[i].classificacao) +
-                "☆".repeat(5 - dados[i].classificacao);
+              estrelas = "★".repeat(dados[i].classificacao) + "☆".repeat(5 - dados[i].classificacao);
             }
 
             console.log(dados[i].idRestaurante);
             restaurante.innerHTML +=
-              `<a href="restaurante.html?id=${dados[i].idRestaurante}">
-          <div class="box_restaurante">
+            `<a href="restaurante.html?id=${dados[i].idRestaurante}">
+            <div class="box_restaurante">
             <h2>${dados[i].nomeRestaurante}</h2>
             <p>Categoria: ${dados[i].categoria}</p>
             <p>Vibe: ${dados[i].vibe}</p>
             <p class="star">${estrelas}</p>
-          </div>
-          </a>`;
+            </div>
+            </a>`;
 
           }
           document.getElementById("restaurante")
@@ -288,7 +284,7 @@
         restaurante.innerHTML = ``;
 
         if (dados.length == 0) {
-          restaurante.innerHTML = `Não achei :(`;
+          restaurante.innerHTML = `Não achei : (`;
           return;
         }
 
@@ -298,19 +294,17 @@
           let estrelas = "☆☆☆☆☆";
 
           if (dados[i].classificacao) {
-            estrelas =
-              "★".repeat(dados[i].classificacao) +
-              "☆".repeat(5 - dados[i].classificacao);
+            estrelas = "★".repeat(dados[i].classificacao) + "☆".repeat(5 - dados[i].classificacao);
           }
 
           console.log(dados[i].idRestaurante);
           restaurante.innerHTML +=
-            `<a href="restaurante.html?id=${dados[i].idRestaurante}">
+          `<a href="restaurante.html?id=${dados[i].idRestaurante}">
           <div class="box_restaurante">
-            <h2>${dados[i].nomeRestaurante}</h2>
-            <p>Categoria: ${dados[i].categoria}</p>
-            <p>Vibe: ${dados[i].vibe}</p>
-            <p class="star">${estrelas}</p>
+          <h2>${dados[i].nomeRestaurante}</h2>
+          <p>Categoria: ${dados[i].categoria}</p>
+          <p>Vibe: ${dados[i].vibe}</p>
+          <p class="star">${estrelas}</p>
           </div>
           </a>`;
 
@@ -355,19 +349,17 @@
           let estrelas = "☆☆☆☆☆";
 
           if (dados[i].classificacao) {
-            estrelas =
-              "★".repeat(dados[i].classificacao) +
-              "☆".repeat(5 - dados[i].classificacao);
+            estrelas = "★".repeat(dados[i].classificacao) + "☆".repeat(5 - dados[i].classificacao);
           }
 
           console.log(dados[i].idRestaurante);
           restaurante.innerHTML +=
-            `<a href="restaurante.html?id=${dados[i].idRestaurante}">
+          `<a href="restaurante.html?id=${dados[i].idRestaurante}">
           <div class="box_restaurante">
-            <h2>${dados[i].nomeRestaurante}</h2>
-            <p>Categoria: ${dados[i].categoria}</p>
-            <p>Vibe: ${dados[i].vibe}</p>
-            <p class="star">${estrelas}</p>
+          <h2>${dados[i].nomeRestaurante}</h2>
+          <p>Categoria: ${dados[i].categoria}</p>
+          <p>Vibe: ${dados[i].vibe}</p>
+          <p class="star">${estrelas}</p>
           </div>
           </a>`;
 

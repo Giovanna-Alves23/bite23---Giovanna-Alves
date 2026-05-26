@@ -163,10 +163,10 @@ function mostrarRestaurantes(req,res) {
 }
 
 function buscarPorId(req, res) {
-    const id = req.params.id;
-    var fkUsuario = req.params.fkUsuario;
+    var fkRestaurante = req.body.fkRestauranteServer;
+    var fkUsuario = req.body.fkUsuarioServer;
 
-    restauranteModel.buscarPorId(id, fkUsuario)
+    restauranteModel.buscarPorId(fkRestaurante, fkUsuario)
         .then(
             function (resultado) {
                 res.json(resultado[0]);
@@ -210,7 +210,7 @@ function salvarResposta(req, res) {
 }
 
 function buscarResultado(req, res) {
-    var fkUsuario = req.params.fkUsuario;
+    var fkUsuario = req.body.fkUsuarioServer;
 
     restauranteModel.buscarResultado(fkUsuario)
         .then(
@@ -292,9 +292,9 @@ function mostrarNaoVisitado(req, res) {
 }
 
 function verAnotacao(req, res) {
-    const id = req.params.id;
+    var fkRestaurante = req.body.fkRestauranteServer;
 
-    restauranteModel.verAnotacao(id)
+    restauranteModel.verAnotacao(fkRestaurante)
         .then(
             function (resultado) {
                 res.json(resultado);

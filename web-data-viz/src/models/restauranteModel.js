@@ -71,14 +71,14 @@ function mostrarRestaurantes() {
     return database.executar(instrucaoSql);
 }
 
-function buscarPorId(id, fkUsuario) {
-    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarPorId():", id, fkUsuario);
+function buscarPorId(fkRestaurante, fkUsuario) {
+    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarPorId():", fkRestaurante, fkUsuario);
 
     var instrucaoSql = `
     SELECT r.nomeRestaurante, r.descricao, r.horario, r.localizacao, s.anotacao, s.classificacao
     FROM restaurante r
     LEFT JOIN usuarioRestaurante s ON s.fkRestaurante = r.idRestaurante AND s.fkUsuario = ${fkUsuario}
-    WHERE idRestaurante = ${id}
+    WHERE idRestaurante = ${fkRestaurante}
     `;
 
     console.log("Executando SQL:\n" + instrucaoSql);
@@ -161,13 +161,13 @@ function mostrarNaoVisitado(fkUsuario) {
     return database.executar(instrucaoSql);
 }
 
-function verAnotacao(id) {
-    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verAnotacoes():", id);
+function verAnotacao(fkRestaurante) {
+    console.log("ACESSEI O RESTAURANTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verAnotacoes():", fkRestaurante);
 
     var instrucaoSql = `
         SELECT nomeUsuario, anotacao, classificacao FROM usuarioRestaurante
         JOIN usuario ON idUsuario = fkUsuario
-        WHERE fkRestaurante = ${id};
+        WHERE fkRestaurante = ${fkRestaurante};
     `;
 
     console.log("Executando SQL:\n" + instrucaoSql);

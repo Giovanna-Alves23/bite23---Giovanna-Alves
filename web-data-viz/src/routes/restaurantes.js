@@ -24,7 +24,7 @@ router.get("/mostrarRestaurantes", function (req, res) {
     restauranteController.mostrarRestaurantes(req, res);
 });
 
-router.get("/buscarPorId/:id/:fkUsuario", function (req, res) {
+router.post("/buscarPorId", function (req, res) {
     restauranteController.buscarPorId(req, res);
 });
 
@@ -32,7 +32,7 @@ router.post("/salvarResposta", function (req, res) {
     restauranteController.salvarResposta(req, res);
 });
 
-router.get("/buscarResultado/:fkUsuario", function (req, res) {
+router.post("/buscarResultado", function (req, res) {
     restauranteController.buscarResultado(req, res);
 });
 
@@ -48,7 +48,7 @@ router.post("/mostrarNaoVisitado", function (req, res) {
     restauranteController.mostrarNaoVisitado(req, res);
 });
 
-router.get("/verAnotacao/:id", function (req, res) {
+router.post("/verAnotacao", function (req, res) {
     restauranteController.verAnotacao(req, res);
 });
 
