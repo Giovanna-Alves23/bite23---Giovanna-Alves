@@ -60,7 +60,7 @@
     function cadastrar() {
         let nome = inp_nome.value;
         let email = inp_email.value;
-        let senha = inp_senha.value; 
+        let senha = inp_senha.value;
         let senhaConfirmada = inp_confirmacao.value;
         let verificacaoEmailArroba = email.indexOf('@');
         let verificacaoEmailPonto = email.indexOf('.');
@@ -79,42 +79,42 @@
                 validacaoFeita = false;
             } else {
                 validacaoFeita = true;
+
+                // Enviando o valor da nova input
+                fetch("http://localhost:3333/usuarios/cadastrar", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        // crie um atributo que recebe o valor recuperado aqui
+                        // Agora vá para o arquivo routes/usuario.js
+                        nomeServer: nome,
+                        emailServer: email,
+                        senhaServer: senha
+                    }),
+                })
+                    .then(function (resposta) {
+                        console.log("resposta: ", resposta);
+
+
+                        if (resposta.ok) {
+
+                            setTimeout(() => {
+                                window.location = "login.html";
+                            }, "2000");
+
+                        } else {
+                            throw "Houve um erro ao tentar realizar o cadastro!";
+                        }
+                    })
+                    .catch(function (resposta) {
+                        console.log(`#ERRO: ${resposta}`);
+                    });
+
+                return false;
             }
         }
-
-        // Enviando o valor da nova input
-        fetch("http://localhost:3333/usuarios/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                nomeServer: nome,
-                emailServer: email,
-                senhaServer: senha
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
-
-                if (resposta.ok) {
-
-                    setTimeout(() => {
-                        window.location = "login.html";
-                    }, "2000");
-
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-
-        return false;
     }
 
     function validar() {
