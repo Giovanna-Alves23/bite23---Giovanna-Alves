@@ -15,7 +15,8 @@ descricao VARCHAR(500),
 horario VARCHAR(300),
 localizacao VARCHAR(100),
 categoria VARCHAR(10),
-vibe VARCHAR(12)
+vibe VARCHAR(12),
+preferencia VARCHAR(6)
 );
 
 CREATE TABLE usuarioRestaurante (
@@ -30,7 +31,7 @@ FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario)
 );
 
 CREATE TABLE quiz (
-idQuiz INT
+idQuiz INT,
 fkUsuario INT,
 aconchegante INT,
 romantica INT,
